@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Canvas.module.scss';
 import { fabric } from 'fabric';
 import Tools from '../Tools/Tools';
-import ApiService from '../../ApiService';
+import ApiService from '../../Services/ApiService';
 import lock from '../../images/lock.png';
 import UserList from '../UserList/UserList';
 

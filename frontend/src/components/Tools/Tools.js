@@ -8,7 +8,7 @@ import pencil from '../../images/pencil.png';
 import spray from '../../images/spray.png';
 import square from '../../images/square.png';
 import triangle from '../../images/triangle.png';
-import ApiService from '../../ApiService';
+import ApiService from '../../Services/ApiService';
 
 const MAX_SIZE = 5000000;
 
