@@ -1,21 +1,26 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-const router = require('./router');
-// TODO: dotenv should be used
+const helmet = require('helmet');
+
+const router = require('./routes/router');
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.SERVER_PORT || 8080;
 
 app.use(cors());
-app.use(bodyParser.json({ limit: '500MB', type: 'application/json' }));
-app.use(bodyParser.urlencoded({ limit: '500MB', extended: true }));
-app.use(express.json());
+app.use(helmet());
+app.use(express.json({ limit: '500MB', type: 'application/json' }));
+app.use(express.urlencoded({ limit: '500MB', extended: true }));
 app.use(router);
+app.all('*', (req, res) => {
+  res.status(404);
+  res.send('<h3>Error 404: page not found</h3>');
+});
 
 mongoose
-  .connect('mongodb://localhost:27017/lukislukis', {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
