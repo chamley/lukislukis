@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
-import { BrushTypes } from '../../domain/brushTypes';
 import ApiService from '../../Services/ApiService';
 
 const MAX_SIZE = 5000000;
@@ -55,13 +54,13 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
   };
 
   const changeBrushType = (type) => (e) => {
-    if (type === BrushTypes.BUBBLES) {
+    if (type === 'bubbles') {
       canvas.freeDrawingBrush = new fabric.CircleBrush(canvas);
     }
-    if (type === BrushTypes.SPRAY) {
+    if (type === 'spray') {
       canvas.freeDrawingBrush = new fabric.SprayBrush(canvas);
     }
-    if (type === BrushTypes.PENCIL) {
+    if (type === 'pencil') {
       canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
     }
     canvas.freeDrawingBrush.width = brushSize;
@@ -116,13 +115,13 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
         <input type={'range'} min={1} max={100} onChange={changeBrushSize} />
         <input type={'color'} onChange={changeColor} />
         <div className={styles.brushButtonsContainer}>
-          <button onClick={changeBrushType(BrushTypes.BUBBLES)}>
+          <button onClick={changeBrushType('bubbles')}>
             <img src="/images/bubbles.jpg" />
           </button>
-          <button onClick={changeBrushType(BrushTypes.SPRAY)}>
+          <button onClick={changeBrushType('spray')}>
             <img src="/images/spray.png" />
           </button>
-          <button onClick={changeBrushType(BrushTypes.PENCIL)}>
+          <button onClick={changeBrushType('pencil')}>
             <img src="/images/pencil.png" />
           </button>
           <button onClick={addRectangle}>
