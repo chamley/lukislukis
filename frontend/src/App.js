@@ -5,8 +5,7 @@ import Canvas from './components/Canvas/Canvas';
 import Login from './components/login/login';
 import io from 'socket.io-client';
 
-const test = process.env.REACT_APP_IO_URL;
-const socket = io('http://localhost:4000');
+const socket = io(process.env.REACT_APP_IO_URL);
 
 function App() {
   const [name, setName] = useState('');
@@ -19,7 +18,7 @@ function App() {
   }, [cookies]);
 
   useEffect(() => {
-    if (name || name !== '') {
+    if (name) {
       setCookie('name', name);
       socket.emit('enter', name);
     } else {
@@ -28,20 +27,19 @@ function App() {
     }
   }, [name, setCookie, removeCookie]);
 
-  if (!name === '') {
-    return <div className="App"></div>;
-  }
+  // DUNNO WHAT THIS DOES!
+  // if (!name === '') {
+  //   return <div className="App"></div>;
+  // }
 
   const logout = () => {
-    // socket.emit('leave');
     setName('');
   };
 
   return (
     <CookiesProvider>
-      {console.log(test)}
       <div className="App">
-        {name || name !== '' ? (
+        {name ? (
           <div className="mainPage">
             <div className={styles.appHeader}>
               <h3>Hello {name}!</h3>
