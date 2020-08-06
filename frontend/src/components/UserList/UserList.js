@@ -10,20 +10,17 @@ const UserList = ({ socket }) => {
     });
   }, [socket]);
 
-  const getUserList = () => {
-    let result = [];
-    for (let user of userList) {
-      result.push(<div className={styles.singleUser}>{user.name + ' '}</div>);
-    }
-    return result;
-  };
-
   return (
     <div className={styles.UserList} data-testid="UserList">
       <div className={styles.listHeader}>
         <span>Fellow Artists Connected:</span>
       </div>
-      {getUserList()}
+      {userList &&
+        userList.map((user) => (
+          <div key={user.name + Math.random()} className={styles.singleUser}>
+            {user.name}
+          </div>
+        ))}
     </div>
   );
 };
