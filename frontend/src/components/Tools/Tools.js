@@ -3,9 +3,9 @@ import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
 import ApiService from '../../Services/ApiService';
 
-const MAX_SIZE = 5000000;
+const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
-function Tools({ canvas, socket, name, id, lock, setLock }) {
+function Tools({ canvas, socket, name, id, lock }) {
   const [brushSize, setBrushSize] = useState(1);
   const [color, setColor] = useState('black');
   const [drawingMode, setDrawingMode] = useState(true);
@@ -16,11 +16,9 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
         _id: id,
         canvasData: JSON.stringify(canvas.toJSON()),
       };
-      ApiService.createResource('canvas', body, 'PUT')
-        .then((res) => console.info(res))
-        .catch((err) => console.info(err));
+      ApiService.createResource('canvas', body, 'PUT').catch((err) => console.info(err));
       socket.emit('save', {
-        data: JSON.stringify(body.canvasData),
+        data: body.canvasData,
         id,
       });
     } else {
@@ -116,22 +114,22 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
         <input type={'color'} onChange={changeColor} />
         <div className={styles.brushButtonsContainer}>
           <button onClick={changeBrushType('bubbles')}>
-            <img src="/images/bubbles.jpg" />
+            <img src="/images/bubbles.jpg" alt="brush bubbles" />
           </button>
           <button onClick={changeBrushType('spray')}>
-            <img src="/images/spray.png" />
+            <img src="/images/spray.png" alt="brush spray" />
           </button>
           <button onClick={changeBrushType('pencil')}>
-            <img src="/images/pencil.png" />
+            <img src="/images/pencil.png" alt="brush pencil" />
           </button>
           <button onClick={addRectangle}>
-            <img src="/images/square.png" />
+            <img src="/images/square.png" alt="brush square" />
           </button>
           <button onClick={addTriangle}>
-            <img src="/images/triangle.png" />
+            <img src="/images/triangle.png" alt="brush triangle" />
           </button>
           <button onClick={addCircle}>
-            <img src="/images/circle.png" />
+            <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
         <button className={styles.saveButton} disabled={isDisabled()} onClick={save}>
