@@ -3,10 +3,9 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import styles from './App.module.scss';
 import Canvas from './components/Canvas/Canvas';
 import Login from './components/login/login';
-import { Socket } from 'socket.io-client';
 import io from 'socket.io-client';
-import UserList from './components/UserList/UserList';
 
+const test = process.env.REACT_APP_IO_URL;
 const socket = io('http://localhost:4000');
 
 function App() {
@@ -34,12 +33,13 @@ function App() {
   }
 
   const logout = () => {
-    socket.emit('leave');
+    // socket.emit('leave');
     setName('');
   };
 
   return (
     <CookiesProvider>
+      {console.log(test)}
       <div className="App">
         {name || name !== '' ? (
           <div className="mainPage">

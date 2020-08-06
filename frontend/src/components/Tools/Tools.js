@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
 import { BrushTypes } from '../../domain/brushTypes';
-import bubbles from '../../images/bubbles.jpg';
-import circle from '../../images/circle.png';
-import pencil from '../../images/pencil.png';
-import spray from '../../images/spray.png';
-import square from '../../images/square.png';
-import triangle from '../../images/triangle.png';
 import ApiService from '../../Services/ApiService';
 
 const MAX_SIZE = 5000000;
@@ -123,22 +117,22 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
         <input type={'color'} onChange={changeColor} />
         <div className={styles.brushButtonsContainer}>
           <button onClick={changeBrushType(BrushTypes.BUBBLES)}>
-            <img src={bubbles} />
+            <img src="/images/bubbles.jpg" />
           </button>
           <button onClick={changeBrushType(BrushTypes.SPRAY)}>
-            <img src={spray} />
+            <img src="/images/spray.png" />
           </button>
           <button onClick={changeBrushType(BrushTypes.PENCIL)}>
-            <img src={pencil} />
+            <img src="/images/pencil.png" />
           </button>
           <button onClick={addRectangle}>
-            <img src={square} />
+            <img src="/images/square.png" />
           </button>
           <button onClick={addTriangle}>
-            <img src={triangle} />
+            <img src="/images/triangle.png" />
           </button>
           <button onClick={addCircle}>
-            <img src={circle} />
+            <img src="/images/circle.png" />
           </button>
         </div>
         <button className={styles.saveButton} disabled={isDisabled()} onClick={save}>
