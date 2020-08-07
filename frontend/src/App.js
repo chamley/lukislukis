@@ -3,11 +3,9 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 import styles from './App.module.scss';
 import Canvas from './components/Canvas/Canvas';
 import Login from './components/login/login';
-import { Socket } from 'socket.io-client';
 import io from 'socket.io-client';
-import UserList from './components/UserList/UserList';
 
-const socket = io('http://localhost:4000');
+const socket = io(process.env.REACT_APP_IO_URL);
 
 function App() {
   const [name, setName] = useState('');
@@ -20,7 +18,7 @@ function App() {
   }, [cookies]);
 
   useEffect(() => {
-    if (name || name !== '') {
+    if (name) {
       setCookie('name', name);
       socket.emit('enter', name);
     } else {
@@ -29,30 +27,30 @@ function App() {
     }
   }, [name, setCookie, removeCookie]);
 
-  if (!name === '') {
-    return <div className="App"></div>;
-  }
+  // DUNNO WHAT THIS DOES!
+  // if (!name === '') {
+  //   return <div className="App"></div>;
+  // }
 
   const logout = () => {
-    socket.emit('leave');
     setName('');
   };
 
   return (
     <CookiesProvider>
       <div className="App">
-        {name || name !== '' ? (
+        {name ? (
           <div className="mainPage">
             <div className={styles.appHeader}>
               <h3>Hello {name}!</h3>
               <button onClick={logout}>Logout</button>
             </div>
             <div className={styles.container}>
-              <Canvas socket={socket} name={name} setName={setName} />
+              <Canvas socket={socket} name={name} />
             </div>
           </div>
         ) : (
-          <Login name={name} setName={setName} />
+          <Login setName={setName} />
         )}
       </div>
     </CookiesProvider>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './login.module.scss';
-import background from '../../images/background.jpg';
-function Login({ name, setName }) {
+
+function Login({ setName }) {
   const [nameInput, setNameInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -15,7 +15,7 @@ function Login({ name, setName }) {
 
   return (
     <div className={styles.login} data-testid="login">
-      <img src={background} />
+      <img src="/images/background.jpg" />
       <div className={styles.heading}>
         <h1>Lukis</h1>
       </div>
@@ -25,6 +25,7 @@ function Login({ name, setName }) {
           className={styles.formElement}
           type="text"
           name="login"
+          value={nameInput}
           onChange={handleNameChange}
         />
         <button className={styles.formElement} type="submit" value="Submit" onClick={handleSubmit}>
