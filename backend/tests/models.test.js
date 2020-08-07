@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const CanvasModel = require('./canvas');
+const CanvasModel = require('../models/canvas');
 
 const mongod = new MongoMemoryServer();
 
