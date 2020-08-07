@@ -46,11 +46,11 @@ function App() {
               <button onClick={logout}>Logout</button>
             </div>
             <div className={styles.container}>
-              <Canvas socket={socket} name={name} setName={setName} />
+              <Canvas socket={socket} name={name} />
             </div>
           </div>
         ) : (
-          <Login name={name} setName={setName} />
+          <Login setName={setName} />
         )}
       </div>
     </CookiesProvider>

@@ -5,7 +5,7 @@ import Tools from '../Tools/Tools';
 import ApiService from '../../Services/ApiService';
 import UserList from '../UserList/UserList';
 
-function Canvas({ name, setName, socket }) {
+function Canvas({ name, socket }) {
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
   const [lock, setLock] = useState({});
@@ -76,15 +76,7 @@ function Canvas({ name, setName, socket }) {
           <canvas style={{ border: 'so lid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>
-          <Tools
-            canvas={canvas}
-            socket={socket}
-            name={name}
-            setName={setName}
-            id={id}
-            lock={lock}
-            setLock={setLock}
-          />
+          <Tools canvas={canvas} socket={socket} name={name} id={id} lock={lock} />
           <div className="userList">
             <UserList socket={socket} />
           </div>
