@@ -3,3 +3,7 @@
 
 #node modules installation files
 node_modules
+
+
+#test coverage
+coverage
