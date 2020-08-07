@@ -5,14 +5,12 @@ const io = require('socket.io')(http);
 let users = []; // object with id: string, name: string;
 let lockby = {}; // object with id:, timestamp
 
-const removeUser = (socket) => {
-  return users.filter((user) => user.id !== socket.id);
-};
+const removeUser = (socket) => users.filter((user) => user.id !== socket.id);
 
 io.on('connection', (socket) => {
   socket.emit('connection', socket.id);
 
-  socket.on('login', (msg) => {});
+  socket.on('login', () => {});
 
   socket.on('save', (msg) => {
     lockby = {};
