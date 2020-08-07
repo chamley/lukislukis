@@ -2,8 +2,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+const noName = '';
+const name = 'some name';
+
+test('renders login page', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const greeting = getByText('Please Enter Your Name');
+  expect(greeting).toBeInTheDocument();
 });
