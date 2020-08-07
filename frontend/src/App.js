@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import styles from './App.module.scss';
-import Canvas from './components/Canvas/Canvas';
-import Login from './components/login/login';
+import Canvas from './components/Canvas/Canvas.js';
+import Login from './components/Login/Login.js';
 import io from 'socket.io-client';
 
 const socket = io(process.env.REACT_APP_IO_URL);

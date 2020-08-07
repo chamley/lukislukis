@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import login from './login';
+import Login from './Login';
 
-describe('<login />', () => {
+describe('<Login />', () => {
   test('it should mount', () => {
-    render(<login />);
+    render(<Login />);
 
     const login = screen.getByTestId('login');
 

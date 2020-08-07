@@ -118,7 +118,7 @@ function Tools({ canvas, socket, name, id, lock }) {
   };
 
   return (
-    <div className={styles.Tools}>
+    <div className={styles.Tools} data-testId={'Tools'}>
       <div className={styles.toolsContainer}>
         <button onClick={toggleDrawingMode}>{drawingMode ? 'Exit' : 'Start'} drawing mode</button>
         <input type={'range'} min={1} max={100} onChange={changeBrushSize} />
