@@ -15,7 +15,7 @@ function Login({ setName }) {
 
   return (
     <div className={styles.login} data-testid="login">
-      <img src="/images/background.jpg" />
+      <img src="/images/background.jpg" alt="light purple background" />
       <div className={styles.heading}>
         <h1>Lukis</h1>
       </div>
