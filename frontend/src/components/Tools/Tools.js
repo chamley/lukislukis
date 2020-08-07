@@ -6,7 +6,7 @@ import ApiService from '../../Services/ApiService';
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
 function Tools({ canvas, socket, name, id, lock }) {
-  const [brushSize, setBrushSize] = useState(1);
+  const [brushSize, setBrushSize] = useState(50);
   const [color, setColor] = useState('black');
   const [drawingMode, setDrawingMode] = useState(true);
 
@@ -42,13 +42,11 @@ function Tools({ canvas, socket, name, id, lock }) {
   };
 
   const changeColor = ({ target }) => {
-    setColor(() => target.value);
+    setColor(target.value);
   };
 
   const changeBrushSize = ({ target }) => {
-    setBrushSize(() => {
-      return parseInt(target.value, 10) || 1;
-    });
+    setBrushSize(parseInt(target.value, 10));
   };
 
   const changeBrushType = (type) => (e) => {
@@ -118,11 +116,18 @@ function Tools({ canvas, socket, name, id, lock }) {
   };
 
   return (
-    <div className={styles.Tools} data-testId={'Tools'}>
+    <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
         <button onClick={toggleDrawingMode}>{drawingMode ? 'Exit' : 'Start'} drawing mode</button>
-        <input type={'range'} min={1} max={100} onChange={changeBrushSize} />
-        <input type={'color'} onChange={changeColor} />
+        <input
+          type={'range'}
+          min={1}
+          max={100}
+          value={brushSize}
+          onChange={changeBrushSize}
+          alt="brush-size"
+        />
+        <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
         <div className={styles.brushButtonsContainer}>
           <button onClick={changeBrushType('bubbles')}>
             <img src="/images/bubbles.jpg" alt="brush bubbles" />
