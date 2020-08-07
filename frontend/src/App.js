@@ -27,11 +27,6 @@ function App() {
     }
   }, [name, setCookie, removeCookie]);
 
-  // DUNNO WHAT THIS DOES!
-  // if (!name === '') {
-  //   return <div className="App"></div>;
-  // }
-
   const logout = () => {
     setName('');
   };
