@@ -82,26 +82,37 @@ function Tools({ canvas, socket, name, id, lock }) {
   const addRectangle = () => {
     setDrawingMode(false);
     const rect = new fabric.Rect();
-    rect.set('angle', 15).set('flipY', true);
-    rect.set({ width: 100, height: 80, fill: color });
-    rect.set('selectable', true);
+    rect.set({
+      width: 100,
+      height: 61.8,
+      fill: color,
+      angle: 15,
+      selectable: true,
+    });
     canvas.add(rect).setActiveObject(rect);
   };
 
   const addTriangle = () => {
     setDrawingMode(false);
     const triangle = new fabric.Triangle();
-    triangle.set('angle', 15).set('flipY', true);
-    triangle.set({ width: 100, height: 80, fill: color });
-    triangle.set('selectable', true);
+    triangle.set({
+      width: 100,
+      height: 86.6,
+      fill: color,
+      selectable: true,
+      angle: 15,
+    });
     canvas.add(triangle).setActiveObject(triangle);
   };
 
   const addCircle = () => {
     setDrawingMode(false);
     const circle = new fabric.Circle();
-    circle.set('angle', 15).set('flipY', true);
-    circle.set({ radius: 100, height: 80, fill: color });
+    circle.set({
+      radius: 100,
+      fill: color,
+      selectable: true,
+    });
     circle.set('selectable', true);
     canvas.add(circle).setActiveObject(circle);
   };
