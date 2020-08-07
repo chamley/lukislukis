@@ -11,14 +11,15 @@ function Tools({ canvas, socket, name, id, lock }) {
   const [drawingMode, setDrawingMode] = useState(true);
 
   const save = () => {
-    if (canvas && JSON.stringify(canvas.toJSON()).length < MAX_SIZE) {
+    const canvasData = JSON.stringify(canvas.toJSON());
+    if (canvas && canvasData.length < MAX_SIZE) {
       const body = {
         _id: id,
-        canvasData: JSON.stringify(canvas.toJSON()),
+        canvasData,
       };
       ApiService.createResource('canvas', body, 'PUT');
       socket.emit('save', {
-        data: body.canvasData,
+        data: canvasData,
         id,
       });
     } else {
