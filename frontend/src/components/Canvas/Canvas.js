@@ -49,29 +49,18 @@ function Canvas({ name, setName, socket }) {
   }, [canvas, socket]);
 
   useEffect(() => {
-    ApiService.getResource('main-canvas')
-      .then((res) => {
-        res
-          .json()
-          .then((data) => {
-            setId(data._id);
-            if (data.canvasData) {
-              const importCanvas = initCanvas();
-              importCanvas.loadFromJSON(data.canvasData, () => {
-                setCanvas(importCanvas);
-                importCanvas.renderAll();
-              });
-            } else {
-              setCanvas(initCanvas());
-            }
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    ApiService.getResource('main-canvas').then((data) => {
+      setId(data._id);
+      if (data.canvasData) {
+        const importCanvas = initCanvas();
+        importCanvas.loadFromJSON(data.canvasData, () => {
+          setCanvas(importCanvas);
+          importCanvas.renderAll();
+        });
+      } else {
+        setCanvas(initCanvas());
+      }
+    });
   }, []);
 
   const canvasLock = () => {

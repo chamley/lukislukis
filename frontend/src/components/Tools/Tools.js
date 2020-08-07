@@ -16,7 +16,7 @@ function Tools({ canvas, socket, name, id, lock }) {
         _id: id,
         canvasData: JSON.stringify(canvas.toJSON()),
       };
-      ApiService.createResource('canvas', body, 'PUT').catch((err) => console.info(err));
+      ApiService.createResource('canvas', body, 'PUT');
       socket.emit('save', {
         data: body.canvasData,
         id,
