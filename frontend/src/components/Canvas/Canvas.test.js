@@ -5,7 +5,7 @@ import Canvas from './Canvas';
 
 const socket = {
   on: (str, callback) => callback([{ name: 'blabla' }]),
-  emit: (str) => {},
+  emit: (str) => ({}),
 };
 
 describe('<Canvas />', () => {

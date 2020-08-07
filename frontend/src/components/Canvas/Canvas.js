@@ -34,7 +34,7 @@ function Canvas({ name, socket }) {
         }
       }
     });
-  }, [lock, canvas, name, socket]);
+  }, [canvas, name, socket]);
 
   useEffect(() => {
     socket.on('connection', (data) => setId(data));
