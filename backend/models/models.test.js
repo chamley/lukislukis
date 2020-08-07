@@ -23,7 +23,7 @@ const cData = {
 };
 
 describe('Canvas Model Test', () => {
-  beforeAll(async () => {
+  beforeAll(async (done) => {
     const dbURI = await mongod.getUri();
     const mongooseOpts = {
       useNewUrlParser: true,
@@ -32,14 +32,17 @@ describe('Canvas Model Test', () => {
     };
     mongoose
       .connect(dbURI, mongooseOpts)
-      .then(() => console.info('Connected to the DB!'))
+      .then(() => {
+        console.info('Connected to the DB!');
+        done();
+      })
       .catch((err) => {
         console.error(err);
         process.exit(1);
       });
   });
 
-  afterEach(async () => {
+  afterEach(async (done) => {
     // const dbData = await CanvasModel.find({});
     // console.info(dbData);
     const { collections } = mongoose.connection;
@@ -48,26 +51,29 @@ describe('Canvas Model Test', () => {
       const collection = collections[key];
       await collection.deleteMany();
     });
+    done();
   });
 
-  afterAll(async () => {
+  afterAll(async (done) => {
     await mongoose.connection.dropDatabase();
     await mongoose.disconnect();
-    await mongoose.stop();
+    done();
   });
 
-  it('should not contain anything initially', async () => {
+  it('should not contain anything initially', async (done) => {
     const count = await CanvasModel.countDocuments();
     expect(count).toEqual(0);
+    done();
   });
 
-  it('should create & save a canvas successfully with a new _id', async () => {
+  it('should create & save a canvas successfully with a new _id', async (done) => {
     const initCanvas = new CanvasModel(cData);
     const savedCanvas = await initCanvas.save();
     expect(savedCanvas._id).toBeDefined();
+    done();
   });
 
-  it('should save the canvas model with the correct data', async () => {
+  it('should save the canvas model with the correct data', async (done) => {
     const Canvas = await CanvasModel.create(cData);
     expect(Canvas.dateCreated).toBe(cData.dateCreated);
     expect(Canvas.dateModified).toBe(cData.dateModified);
@@ -81,18 +87,20 @@ describe('Canvas Model Test', () => {
     expect(Canvas.canvasData.property6).toHaveProperty('nestProp2', canv.property6.nestProp2);
     expect(Canvas.canvasData.property6).toHaveProperty('nestProp3', canv.property6.nestProp3);
     expect(Canvas.isMainCanvas).toBe(cData.isMainCanvas);
+    done();
   });
 
-  it('should insert canvas, but with not defined field in schema -> undefined', async () => {
+  it('should insert canvas, but with not defined field in schema -> undefined', async (done) => {
     cData.invalidProp = 'invalidProp';
     const canvasWithInvalidField = new CanvasModel(cData);
     const savedCanvasWithInvalidField = await canvasWithInvalidField.save();
     expect(savedCanvasWithInvalidField._id).toBeDefined();
     expect(savedCanvasWithInvalidField.invalidProp).toBeUndefined();
     delete cData.invalidProp;
+    done();
   });
 
-  it('should not create canvas with wrong type of data ', async () => {
+  it('should not create canvas with wrong type of data ', async (done) => {
     const wrongCanvas = {
       dateCreated: '-123',
       dateModified: Symbol('foo'),
@@ -107,5 +115,6 @@ describe('Canvas Model Test', () => {
 
     const errorType = mongoose.Error.ValidationError;
     await expect(CanvasModel.create(wrongCanvas)).rejects.toThrow(errorType);
+    done();
   });
 });
