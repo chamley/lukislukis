@@ -24,4 +24,9 @@ describe('<UserList />', () => {
     userList = render(<UserList socket={socket2} />);
     expect(await screen.findAllByTestId('artist')).toHaveLength(2);
   });
+
+  it('should display the right names', async () => {
+    let userList = render(<UserList socket={socket2} />);
+    expect(await screen.getByText('blabla2')).toBeInTheDocument();
+  });
 });
