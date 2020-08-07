@@ -14,9 +14,9 @@ const CanvasSchema = new mongoose.Schema({
   canvasData: {
     type: Object,
     required: true,
-    index: true,
-    unique: true,
-    default: null,
+    default: {
+      initialData: true,
+    },
   },
   isMainCanvas: {
     type: Boolean,

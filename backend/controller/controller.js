@@ -1,23 +1,9 @@
 const Canvas = require('../models/canvas');
 
-exports.postCanvas = async (req, res) => {
-  try {
-    // creating with an empty object will populate with the default values
-    const canvas = await Canvas.create({});
-    res.status(201);
-    res.json(canvas);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
-};
-
 exports.getMainCanvas = async (req, res) => {
   try {
     let canvas = await Canvas.findOne({ isMainCanvas: true }).exec();
-    if (!canvas) {
-      canvas = await Canvas.create({ isMainCanvas: true });
-    }
+    if (!canvas) canvas = await Canvas.create({ isMainCanvas: true });
     res.status(200);
     res.json(canvas);
   } catch (error) {
@@ -40,17 +26,32 @@ exports.getCanvas = async (req, res) => {
   }
 };
 
+exports.postCanvas = async (req, res) => {
+  try {
+    // creating with an empty object will populate with the default values
+    const canvas = await Canvas.create({});
+    res.status(201);
+    res.json(canvas);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
 exports.putCanvas = async (req, res) => {
   // todo make a id validator to check for non hex id
   try {
-    const newCanvas = await Canvas.findByIdAndUpdate(req.body._id, {
-      canvasData: req.body.canvasData,
-      dateModified: new Date(),
-    },
-    {
-      useFindAndModify: false,
-      new: true,
-    });
+    const newCanvas = await Canvas.findByIdAndUpdate(
+      req.body._id,
+      {
+        canvasData: req.body.canvasData,
+        dateModified: new Date(),
+      },
+      {
+        useFindAndModify: false,
+        new: true,
+      },
+    );
     if (!newCanvas) throw new Error(`Error canvas not found with id ${req.body.id}`);
     res.status(200);
     res.json(newCanvas);

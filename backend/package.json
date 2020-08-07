@@ -2,9 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "test": "jest --detectOpenHandles --forceExit --maxWorkers=10",
     "eslint": "eslint . --ext .js",
     "pretty": "./node_modules/.bin/prettier --write './**/*.{js,json,md}'",
@@ -27,6 +27,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.2.2",
-    "mongodb-memory-server": "^6.6.3"
+    "mongodb-memory-server": "^6.6.3",
+    "supertest": "^4.0.2"
   }
 }
