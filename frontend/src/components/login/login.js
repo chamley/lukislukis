@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './login.module.scss';
-function Login({ name, setName }) {
+
+function Login({ setName }) {
   const [nameInput, setNameInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -24,6 +25,7 @@ function Login({ name, setName }) {
           className={styles.formElement}
           type="text"
           name="login"
+          value={nameInput}
           onChange={handleNameChange}
         />
         <button className={styles.formElement} type="submit" value="Submit" onClick={handleSubmit}>
