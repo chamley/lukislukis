@@ -17,7 +17,7 @@ const UserList = ({ socket }) => {
       </div>
       {userList &&
         userList.map((user) => (
-          <div key={user.name + Math.random()} className={styles.singleUser}>
+          <div key={user.name + Math.random()} className={styles.singleUser} data-testid="artist">
             {user.name}
           </div>
         ))}
