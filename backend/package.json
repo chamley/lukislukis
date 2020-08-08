@@ -19,7 +19,6 @@
     "express": "^4.17.1",
     "helmet": "^4.0.0",
     "mongoose": "^5.9.26",
-    "nodemon": "2.0.4",
     "prettier": "^2.0.5"
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.2.2",
     "mongodb-memory-server": "^6.6.3",
+    "nodemon": "2.0.4",
     "supertest": "^4.0.2"
   }
 }
