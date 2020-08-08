@@ -21,13 +21,23 @@ describe('<Canvas />', () => {
     component.unmount();
   });
 
-  it('Clicking on Canvas should lock the active user', () => {
+  it('Clicking on Canvas should lock the active user when free', () => {
     let component = render(<Canvas socket={socket} name={name} />);
     jest.clearAllMocks();
-    expect(lock.name).toBe('');
     fireEvent.click(screen.getByRole('canvas'));
     expect(socket.emit).toHaveBeenCalledTimes(1);
-    expect(lock.name).toBe('mockName');
+    component.unmount();
+  });
+
+  it('Clicking on Canvas should not lock the active user when busy', () => {
+    socket.on = (str, callback) => {
+      if (str === 'userList') return callback([{ name: 'blabla' }]);
+      if (str === 'locks') return callback({ name: 'mockUser' });
+    };
+    let component = render(<Canvas socket={socket} name={name} />);
+    jest.clearAllMocks();
+    fireEvent.click(screen.getByRole('canvas'));
+    expect(socket.emit).toHaveBeenCalledTimes(0);
     component.unmount();
   });
 
