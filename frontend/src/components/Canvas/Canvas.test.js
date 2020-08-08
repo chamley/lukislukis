@@ -29,7 +29,7 @@ describe('<Canvas />', () => {
     component.unmount();
   });
 
-  it('Clicking on Canvas should not lock the active user when busy', () => {
+  it('Clicking on Canvas should not allow painting when busy', () => {
     socket.on = (str, callback) => {
       if (str === 'userList') return callback([{ name: 'blabla' }]);
       if (str === 'locks') return callback({ name: 'mockUser' });
