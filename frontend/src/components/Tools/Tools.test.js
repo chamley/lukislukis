@@ -23,10 +23,6 @@ const lock = {
 };
 let name = 'blabla';
 
-const ApiService = {
-  createResource: jest.fn(),
-};
-
 const socket = {
   emit: jest.fn(),
 };
@@ -46,7 +42,7 @@ describe('<Tools /> for the active user', () => {
     expect(tools).toBeInTheDocument();
   });
 
-  it('clicking on the drawing-mode button should switch drawing modes', () => {
+  it('Clicking on the drawing-mode button should switch drawing modes', () => {
     fireEvent.click(screen.getByText(/drawing mode/i));
     expect(screen.getByText(/Start/i)).toBeInTheDocument();
     fireEvent.click(screen.getByText(/drawing mode/i));
