@@ -3,16 +3,44 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Tools from './Tools';
 
-const canvas = {};
+const canvas = {
+  add: function () {
+    this._objects.push.apply(this._objects, arguments);
+    return this;
+  },
+  clear: function () {
+    this._objects = [];
+    return true;
+  },
+  toJSON: () => [],
+  setActiveObject: function (obj) {
+    return true;
+  },
+  _objects: [],
+};
 const lock = {
   name: 'blabla',
 };
+let name = 'blabla';
 
-beforeEach(() => {
-  render(<Tools canvas={canvas} lock={lock} />);
-});
+const ApiService = {
+  createResource: jest.fn(),
+};
 
-describe('<Tools />', () => {
+const socket = {
+  emit: jest.fn(),
+};
+
+describe('<Tools /> for the active user', () => {
+  beforeEach(() => {
+    render(<Tools canvas={canvas} socket={socket} name={name} lock={lock} />);
+  });
+
+  afterEach(() => {
+    canvas.clear();
+    jest.clearAllMocks();
+  });
+
   test('it should mount', () => {
     const tools = screen.getByTestId('Tools');
     expect(tools).toBeInTheDocument();
@@ -41,5 +69,73 @@ describe('<Tools />', () => {
     expect(setColor.value).toBe('#ff0000');
   });
 
-  it('Clicking on bubbles should change the brush to bubbles', () => {});
+  it('Clicking on bubbles should change the brush to bubbles', () => {
+    const bubbles = { points: [] };
+    fireEvent.click(screen.getByAltText('brush bubbles'));
+    expect(canvas.freeDrawingBrush).toMatchObject(bubbles);
+  });
+
+  it('Clicking on spray should change the brush to spray', () => {
+    const spray = { sprayChunks: [] };
+    fireEvent.click(screen.getByAltText('brush spray'));
+    expect(canvas.freeDrawingBrush).toMatchObject(spray);
+  });
+
+  it('Clicking on pencil should change the brush to pencil', () => {
+    const pencil = { _points: [] };
+    fireEvent.click(screen.getByAltText('brush pencil'));
+    expect(canvas.freeDrawingBrush).toMatchObject(pencil);
+  });
+
+  it('Clicking on rectangle should create a new rectangle', () => {
+    expect(canvas._objects).toHaveLength(0);
+    fireEvent.click(screen.getByAltText('brush square'));
+    expect(canvas._objects[0].type).toBe('rectangle');
+  });
+
+  it('Clicking on triangle should create a new triangle', () => {
+    expect(canvas._objects).toHaveLength(0);
+    fireEvent.click(screen.getByAltText('brush triangle'));
+    expect(canvas._objects).toHaveLength(1);
+  });
+
+  it('Clicking on circle should create a new circle', () => {
+    expect(canvas._objects).toHaveLength(0);
+    fireEvent.click(screen.getByAltText('brush circle'));
+    expect(canvas._objects).toHaveLength(1);
+  });
+
+  it('Clicking on clear should reset the canvas', () => {
+    fireEvent.click(screen.getByAltText('brush circle'));
+    expect(canvas._objects).toHaveLength(1);
+    expect(screen.getByText('clear')).not.toHaveAttribute('disabled');
+    fireEvent.click(screen.getByText('clear'));
+    expect(canvas._objects).toHaveLength(0);
+  });
+
+  it('Clicking on save should trigger the save function', () => {
+    expect(screen.getByText('send')).not.toHaveAttribute('disabled');
+    fireEvent.click(screen.getByText('send'));
+    expect(socket.emit).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('<Tools /> for inactive user', () => {
+  beforeEach(() => {
+    render(<Tools canvas={canvas} socket={socket} name={'anotherUser'} lock={lock} />);
+  });
+
+  it('Clear button should be disabled', () => {
+    expect(screen.getByText('clear')).toHaveAttribute('disabled');
+    fireEvent.click(screen.getByAltText('brush circle'));
+    expect(canvas._objects).toHaveLength(1);
+    fireEvent.click(screen.getByText('clear'));
+    expect(canvas._objects).toHaveLength(1);
+  });
+
+  it('Save button should be disabled', () => {
+    expect(screen.getByText('send')).toHaveAttribute('disabled');
+    fireEvent.click(screen.getByText('send'));
+    expect(socket.emit).toHaveBeenCalledTimes(0);
+  });
 });
