@@ -6,8 +6,8 @@ import ApiService from '../../Services/ApiService';
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
 function Tools({ canvas, socket, name, id, lock }) {
-  const [brushSize, setBrushSize] = useState(1);
-  const [color, setColor] = useState('black');
+  const [brushSize, setBrushSize] = useState(50);
+  const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
 
   const save = () => {
@@ -43,13 +43,11 @@ function Tools({ canvas, socket, name, id, lock }) {
   };
 
   const changeColor = ({ target }) => {
-    setColor(() => target.value);
+    setColor(target.value);
   };
 
   const changeBrushSize = ({ target }) => {
-    setBrushSize(() => {
-      return parseInt(target.value, 10) || 1;
-    });
+    setBrushSize(parseInt(target.value, 10));
   };
 
   const changeBrushType = (type) => (e) => {
@@ -84,6 +82,7 @@ function Tools({ canvas, socket, name, id, lock }) {
     setDrawingMode(false);
     const rect = new fabric.Rect();
     rect.set({
+      type: 'rectangle',
       width: 100,
       height: 61.8,
       fill: color,
@@ -97,6 +96,7 @@ function Tools({ canvas, socket, name, id, lock }) {
     setDrawingMode(false);
     const triangle = new fabric.Triangle();
     triangle.set({
+      type: 'triangle',
       width: 100,
       height: 86.6,
       fill: color,
@@ -110,6 +110,7 @@ function Tools({ canvas, socket, name, id, lock }) {
     setDrawingMode(false);
     const circle = new fabric.Circle();
     circle.set({
+      type: 'circle',
       radius: 100,
       fill: color,
       selectable: true,
@@ -119,11 +120,18 @@ function Tools({ canvas, socket, name, id, lock }) {
   };
 
   return (
-    <div className={styles.Tools} data-testId={'Tools'}>
+    <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
         <button onClick={toggleDrawingMode}>{drawingMode ? 'Exit' : 'Start'} drawing mode</button>
-        <input type={'range'} min={1} max={100} onChange={changeBrushSize} />
-        <input type={'color'} onChange={changeColor} />
+        <input
+          type={'range'}
+          min={1}
+          max={100}
+          value={brushSize}
+          onChange={changeBrushSize}
+          alt="brush-size"
+        />
+        <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
         <div className={styles.brushButtonsContainer}>
           <button onClick={changeBrushType('bubbles')}>
             <img src="/images/bubbles.jpg" alt="brush bubbles" />
