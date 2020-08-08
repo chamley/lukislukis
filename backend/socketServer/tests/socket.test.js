@@ -1,76 +1,72 @@
-const io = require('socket.io-client');
+const ioClient = require('socket.io-client');
 const http = require('http');
 const ioBack = require('socket.io');
 
-let socket;
-let httpServer;
-let httpServerAddr;
-let ioServer;
-
-/**
- * Setup WS & HTTP servers
- */
-beforeAll((done) => {
-  httpServer = http.createServer().listen();
-  httpServerAddr = httpServer.listen().address();
-  ioServer = ioBack(httpServer);
-  done();
-});
-
-/**
- *  Cleanup WS & HTTP servers
- */
-afterAll((done) => {
-  ioServer.close();
-  httpServer.close();
-  done();
-});
-
-/**
- * Run before each test
- */
-beforeEach((done) => {
-  // Setup
-  // Do not hardcode server port and address, square brackets are used for IPv6
-  socket = io.connect(`http://[${httpServerAddr.address}]:${httpServerAddr.port}`, {
-    'reconnection delay': 0,
-    'reopen delay': 0,
-    'force new connection': true,
-    transports: ['websocket'],
-  });
-  socket.on('connect', () => {
-    done();
-  });
-});
-
-/**
- * Run after each test
- */
-afterEach((done) => {
-  // Cleanup
-  if (socket.connected) {
-    socket.disconnect();
-  }
-  done();
-});
-
 describe('basic socket.io example', () => {
-  test('should communicate', (done) => {
-    // once connected, emit Hello World
-    ioServer.emit('echo', 'Hello World');
-    socket.once('echo', (message) => {
-      // Check that the message matches
-      expect(message).toBe('Hello World');
-      done();
+  const serve = {
+    socket: null,
+    httpServer: null,
+    httpServerAddr: null,
+    ioServer: null,
+  };
+
+  /**
+   * Initialize WS & HTTP servers
+   */
+  beforeAll(() => {
+    const s = serve;
+    s.httpServer = http.createServer();
+    s.ioServer = ioBack(s.httpServer);
+    s.httpServer.listen();
+    s.httpServerAddr = s.httpServer.address();
+  });
+
+  /**
+   *  Close WS & HTTP servers
+   */
+  afterAll(async (done) => {
+    const s = serve;
+    s.ioServer.close(() => s.httpServer.close(done));
+  });
+
+  /**
+   * Run before each test
+   */
+  beforeEach(() => {
+    // Square brackets are used for IPv6
+    const s = serve;
+    s.socket = ioClient.connect(`http://[${s.httpServerAddr.address}]:${s.httpServerAddr.port}`, {
+      'reconnection delay': 0,
+      'reopen delay': 0,
+      'force new connection': true,
+      transports: ['websocket'],
     });
-    ioServer.on('connection', (mySocket) => {
+    s.socket.on('connect', () => {});
+  });
+
+  /**
+   * Run after each test
+   */
+  afterEach(() => {
+    const s = serve;
+    if (s.socket.connected) s.socket.disconnect();
+  });
+
+  test('should communicate', async (done) => {
+    const s = serve;
+    s.ioServer.emit('echo', 'Hello World');
+    s.socket.once('echo', async (message) => {
+      await expect(message).toBe('Hello World');
+    });
+    s.ioServer.on('connection', (mySocket) => {
       expect(mySocket).toBeDefined();
     });
+    done();
   });
-  test('should communicate with waiting for socket.io handshakes', (done) => {
-    // Emit sth from Client do Server
-    socket.emit('examlpe', 'some messages');
-    // Use timeout to wait for socket.io server handshakes
+
+  test('should communicate with waiting for socket.io handshakes', async (done) => {
+    const s = serve;
+    s.socket.emit('examlpe', 'some messages');
     setTimeout(() => {
       // Put your server side expect() here
       done();
