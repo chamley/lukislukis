@@ -23,7 +23,7 @@ function Canvas({ name, socket }) {
   useEffect(() => {
     socket.emit('getLocks');
     socket.on('locks', (data) => {
-      setLock(data);
+      setLock(() => data);
       if (Object.keys(canvas).length > 0) {
         if (data.name && data.name !== name) {
           canvas.isDrawingMode = false;
@@ -72,8 +72,8 @@ function Canvas({ name, socket }) {
   return (
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
-        <div onClick={canvasLock}>
-          <canvas style={{ border: 'so lid 1px #eee' }} id="main-canvas"></canvas>
+        <div onClick={canvasLock} role="canvas">
+          <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>
           <Tools canvas={canvas} socket={socket} name={name} id={id} lock={lock} />
