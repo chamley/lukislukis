@@ -2,10 +2,10 @@
   "name": "socket_io_server",
   "version": "1.0.0",
   "description": "",
-  "main": "socket.js",
+  "main": "soServer.js",
   "scripts": {
     "test": "jest --detectOpenHandles --forceExit --maxWorkers=10",
-    "start": "nodemon socket.js"
+    "start": "nodemon soServer.js"
   },
   "keywords": [],
   "author": "",
