@@ -1,6 +1,6 @@
 const ioClient = require('socket.io-client');
 const http = require('http');
-const ioBack = require('socket.io');
+const makeIoServer = require('../ioSocket');
 
 describe('basic socket.io example', () => {
   const serve = {
@@ -16,7 +16,7 @@ describe('basic socket.io example', () => {
   beforeAll(() => {
     const s = serve;
     s.httpServer = http.createServer();
-    s.ioServer = ioBack(s.httpServer);
+    s.ioServer = makeIoServer(s.httpServer);
     s.httpServer.listen();
     s.httpServerAddr = s.httpServer.address();
   });
