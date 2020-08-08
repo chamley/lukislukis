@@ -6,53 +6,56 @@ import Canvas from './Canvas';
 const socket = {
   on: (str, callback) => {
     if (str === 'userList') return callback([{ name: 'blabla' }]);
-    if (str === 'locks') return callback({ name: 'mockName' });
+    if (str === 'locks') return callback({ name: '' });
   },
   emit: jest.fn(),
-};
-
-const canvas = {
-  add: function () {
-    this._objects.push.apply(this._objects, arguments);
-    return this;
-  },
-  clear: function () {
-    this._objects = [];
-    return true;
-  },
-  toJSON: () => [],
-  setActiveObject: function (obj) {
-    return true;
-  },
-  _objects: [],
-};
-
-const lock = {
-  name: 'blabla',
 };
 
 let name = 'blabla';
 
 describe('<Canvas />', () => {
-  beforeEach(() => {
-    render(<Canvas socket={socket} name={name} />);
-  });
-
-  afterEach(() => {
-    canvas.clear();
-    jest.clearAllMocks();
-  });
-
   test('it should mount', () => {
+    let component = render(<Canvas socket={socket} name={name} />);
     const canvas = screen.getByTestId('Canvas');
     expect(canvas).toBeInTheDocument();
+    component.unmount();
   });
 
   it('Clicking on Canvas should lock the active user', () => {
+    let component = render(<Canvas socket={socket} name={name} />);
     jest.clearAllMocks();
     expect(lock.name).toBe('');
     fireEvent.click(screen.getByRole('canvas'));
     expect(socket.emit).toHaveBeenCalledTimes(1);
     expect(lock.name).toBe('mockName');
+    component.unmount();
+  });
+
+  it('Should display the tool-box', () => {
+    let component = render(<Canvas socket={socket} name={name} />);
+    expect(screen.getByTestId('Tools')).toBeInTheDocument();
+    component.unmount();
+  });
+
+  it("Should display the users' list", () => {
+    let component = render(<Canvas socket={socket} name={name} />);
+    expect(screen.getByTestId('UserList')).toBeInTheDocument();
+    component.unmount();
+  });
+
+  it('Should render a warning message when another user is drawing', () => {
+    socket.on = (str, callback) => {
+      if (str === 'userList') return callback([{ name: 'blabla' }]);
+      if (str === 'locks') return callback({ name: 'mockUser' });
+    };
+    let component = render(<Canvas socket={socket} name={name} />);
+    expect(screen.getByText(/currently drawing/i)).toBeInTheDocument();
+    component.unmount();
+  });
+
+  it('Should not render a warning when not locked', () => {
+    let component = render(<Canvas socket={socket} name={name} />);
+    expect(() => getByText(/currently drawing/i)).toThrow();
+    component.unmount();
   });
 });

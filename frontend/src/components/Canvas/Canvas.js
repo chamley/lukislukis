@@ -82,7 +82,7 @@ function Canvas({ name, socket }) {
           </div>
         </div>
       </div>
-      {lock.name && lock.name !== '' ? (
+      {lock.name ? (
         <div className={styles.status}>{lock.name} is currently drawing...</div>
       ) : (
         <div></div>
