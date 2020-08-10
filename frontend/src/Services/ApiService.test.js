@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom/extend-expect';
-
 import ApiService from './ApiService';
 
 // DOCS:
@@ -24,13 +23,44 @@ import ApiService from './ApiService';
 // iterate through canvas object and determine if relevant fields are identical
 
 describe('unit test for functions in ApiService.js', () => {
-  test('returns proper status code on failure', async () => {
+  test('Fetch request called successfully with valid body', async () => {
+    const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 201,
+        json: () => [],
+      })
+    );
+    const endpoint = 'canvas';
+    const validBody = {};
+    const type = 'POST';
+    const x = await ApiService.createResource(endpoint, validBody, type);
+    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/canvas', {
+      body: JSON.stringify(validBody),
+      headers: { 'Content-Type': 'application/json' },
+      method: type,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(x).toStrictEqual([]);
+    jest.clearAllMocks();
+  });
+
+  test('Fetch request returns an error when passed an invalid body', async () => {
+    const failingFetchMock = jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 500,
+      })
+    );
     const endpoint = 'canvas';
     const invalidBody = {};
-    const type = 'PUT';
+    const type = 'POST';
     const x = await ApiService.createResource(endpoint, invalidBody, type);
-    console.log(x);
-    //expect(x.status).toEqual(500);
+    expect(failingFetchMock).toHaveBeenCalledWith('http://localhost:8080/canvas', {
+      body: JSON.stringify(invalidBody),
+      headers: { 'Content-Type': 'application/json' },
+      method: type,
+    });
+    expect(failingFetchMock).toHaveBeenCalledTimes(1);
+    expect(x).toStrictEqual(undefined);
   });
 
   // test('persists valid canvas to db', async () => {
@@ -48,10 +78,4 @@ describe('unit test for functions in ApiService.js', () => {
   //   //console.log(x);
   //   // BE emits 'Error: Error canvas not found with id 123456789_12'
   // });
-
-  test('retrieves persisted canvas from db', async () => {
-    //tbd
-  });
-  
-
 });
