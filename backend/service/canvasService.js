@@ -13,9 +13,7 @@ exports.findCanvas = async(id) => {
     let canvas = await Canvas.findById(id);
     if(!canvas) {
         throw new Error(`Error canvas not found with id ${JSON.stringify(id)}`);
-
     }
-
     return canvas;
 }
 
