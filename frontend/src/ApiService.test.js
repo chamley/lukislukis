@@ -53,4 +53,6 @@ describe('unit test for functions in ApiService.js', () => {
   test('retrieves persisted canvas from db', async () => {
     //tbd
   });
+  const x = '';
+
 });
