@@ -20,7 +20,7 @@ const fetchFromDb = async (url, options) => {
   return fetch(url, options)
     .then((res) => (res.status < 400 ? res : Promise.reject(res)))
     .then((res) => (res.status !== 204 ? res.json() : res))
-    .catch((error) => console.log(error));
+    .catch((error) => console.info(error));
 };
 
 export default {
