@@ -10,9 +10,6 @@ describe('basic socket.io example', () => {
     ioServer: null,
   };
 
-  /**
-   * Initialize WS & HTTP servers
-   */
   beforeAll(() => {
     const s = serve;
     s.httpServer = http.createServer();
@@ -21,17 +18,11 @@ describe('basic socket.io example', () => {
     s.httpServerAddr = s.httpServer.address();
   });
 
-  /**
-   *  Close WS & HTTP servers
-   */
   afterAll(async (done) => {
     const s = serve;
     s.ioServer.close(() => s.httpServer.close(done));
   });
 
-  /**
-   * Run before each test
-   */
   beforeEach(() => {
     // Square brackets are used for IPv6
     const s = serve;
@@ -44,9 +35,6 @@ describe('basic socket.io example', () => {
     s.socket.on('connect', () => {});
   });
 
-  /**
-   * Run after each test
-   */
   afterEach(() => {
     const s = serve;
     if (s.socket.connected) s.socket.disconnect();
