@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CookiesProvider, useCookies } from "react-cookie";
 import styles from "./App.module.scss";
 import Canvas from "./components/Canvas/Canvas";
-import Login from "./components/login/login";
+import Login from "./components/login/Login";
 import { Socket } from "socket.io-client";
 import io from "socket.io-client";
 import UserList from "./components/UserList/UserList";

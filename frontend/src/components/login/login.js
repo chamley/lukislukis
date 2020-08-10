@@ -4,7 +4,7 @@ import background from "../../images/background.jpg";
 function Login({ name, setName }) {
   const [nameInput, setNameInput] = useState("");
 
-  const handleSubmit = (e) => {
+   const handleSubmit = (e) => {
     if (!nameInput) return alert("must enter a name");
     setName(nameInput);
   };
@@ -21,7 +21,7 @@ function Login({ name, setName }) {
       </div>
       <div className={styles.loginForm}>
         <label className={styles.formElement}>Please Enter Your Name</label>
-        <input className={styles.formElement} type="text" name="login" onChange={handleNameChange} />
+        <input className={styles.formElement} type="text" name="login" value={nameInput} onChange={handleNameChange} />
         <button className={styles.formElement} type="submit" value="Submit" onClick={handleSubmit}>
           Enter
         </button>
