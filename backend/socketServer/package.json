@@ -16,7 +16,6 @@
     "nodemon": "^2.0.4"
   },
   "devDependencies": {
-    "jest": "^26.2.2",
-    "socket.io-client": "^2.3.0"
+    "mocha": "^8.1.1"
   }
 }
