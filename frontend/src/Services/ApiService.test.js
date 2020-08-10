@@ -61,6 +61,22 @@ describe('unit test for functions in ApiService.js', () => {
     });
     expect(failingFetchMock).toHaveBeenCalledTimes(1);
     expect(x).toStrictEqual(undefined);
+    jest.clearAllMocks();
+  });
+
+  test('Get request called successfully with valid response', async () => {
+    const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        json: () => [],
+      })
+    );
+    const endpoint = 'canvas';
+    const x = await ApiService.getResource(endpoint);
+    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/canvas', undefined);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(x).toStrictEqual([]);
+    jest.clearAllMocks();
   });
 
   // test('persists valid canvas to db', async () => {
