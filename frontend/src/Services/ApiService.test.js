@@ -79,6 +79,36 @@ describe('unit test for functions in ApiService.js', () => {
     jest.clearAllMocks();
   });
 
+  test('Get request called successfully with params', async () => {
+    const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 200,
+        json: () => [],
+      })
+    );
+    const endpoint = 'canvas';
+    const params = 'hello';
+    const x = await ApiService.getResource(endpoint, params);
+    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/canvas/hello', undefined);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(x).toStrictEqual([]);
+    jest.clearAllMocks();
+  });
+
+  test('Testing 204 response', async () => {
+    const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        status: 204,
+      })
+    );
+    const endpoint = 'canvas';
+    const x = await ApiService.getResource(endpoint);
+    expect(fetchMock).toHaveBeenCalledWith('http://localhost:8080/canvas', undefined);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(x.status).toBe(204);
+    jest.clearAllMocks();
+  });
+
   // test('persists valid canvas to db', async () => {
   //   const endpoint = 'canvas';
   //   const type = 'PUT';

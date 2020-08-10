@@ -43,13 +43,13 @@ describe('<login />', () => {
 
   // https://medium.com/wehkamp-techblog/unit-testing-your-react-application-with-jest-and-enzyme-81c5545cee45
   test('On submit without text inputed, fires alert', () => {
-    //jest.clearAllMocks();
     const setName = jest.fn();
-    window.alert = jest.fn(); // = jest.spyOn(window, 'alert');
-
+    const unmockedAlert = window.alert;
+    window.alert = jest.fn();
     render(<Login setName={setName} />);
     fireEvent.click(screen.getByText('Enter'));
     expect(setName).toHaveBeenCalledTimes(0);
     expect(window.alert).toHaveBeenCalledTimes(1);
+    window.alert = unmockedAlert;
   });
 });

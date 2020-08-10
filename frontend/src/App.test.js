@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, renderHook, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
 const testUsername = 'RANDOM USERNAME';
