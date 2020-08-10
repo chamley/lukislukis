@@ -19,7 +19,7 @@ function createResource(endpoint, body, type) {
 const fetchFromDb = async (url, options) => {
   try {
     const res = await fetch(url, options);
-    const res_1 = res.status < 400 ? res : Promise.reject(res);
+    const res_1 = res.status < 400 ? res : Promise.reject(new Error(res));
     return res_1.status !== 204 ? res_1.json() : res_1;
   } catch (error) {
     console.error(error);
