@@ -1,44 +1,52 @@
 import React from 'react';
-import { render, screen, fireEvent, renderHook, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
+import { Socket } from 'socket.io-client';
 
-const testUsername = 'RANDOM USERNAME';
+jest.mock('./components/Canvas/Canvas', () => () => <div data-testid="Canvas"></div>);
+jest.mock('./components/Login/Login', () => () => <div data-testid="Login"></div>);
+Socket.emit = () => true;
 
-// DOCS
-// Tests are fairly self-explanatory. check line comments
-
-describe('Integrated test App.js + Login.js', () => {
-  //beforeEach(cleanup);
-
-  test('App renders a login', () => {
+describe('<App />', () => {
+  test('App renders in the page', () => {
     render(<App />);
-    expect(screen.getByTestId('login')).toBeInTheDocument();
+    expect(screen.getByTestId('App')).toBeInTheDocument();
   });
 
-  test('Integrated Testing of App.js and Login.js to see if all components of the login render properly', () => {
-    const regexp = new RegExp(testUsername);
+  test('App renders a login when no cookie is provided', () => {
     render(<App />);
+    expect(screen.getByTestId('Login')).toBeInTheDocument();
+  });
 
-    fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: testUsername },
+  test('App renders Canvas when a cookie is provided', () => {
+    Object.defineProperty(window.document, 'cookie', {
+      writable: true,
+      value: 'name=testName',
     });
+    render(<App />);
+    expect(screen.getByTestId('Canvas')).toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByText('Enter'));
-
-    expect(screen.getByText(regexp)).toBeInTheDocument();
-
+  test('App renders the name of the user and a Logout button when logged in', () => {
+    Object.defineProperty(window.document, 'cookie', {
+      writable: true,
+      value: 'name=testName',
+    });
+    render(<App />);
+    expect(screen.getByText(/testName/i)).toBeInTheDocument();
     expect(screen.getByText('Logout')).toBeInTheDocument();
   });
 
-  test('Integrated testing of App.js and Login.js to see if logout functions properly', () => {
-    // we are already logged in due to test above
-    const regexp = new RegExp(testUsername);
+  test('Clicking on Logout should render the Login page', () => {
+    Object.defineProperty(window.document, 'cookie', {
+      writable: true,
+      value: 'name=testName',
+    });
     render(<App />);
-
     // now logout. We didn't unmount anything so the state is as is from previous test()
     fireEvent.click(screen.getByText('Logout'));
 
-    expect(screen.getByTestId('login')).toBeInTheDocument();
-    expect(() => getByText(regexp)).toThrow();
+    expect(screen.getByTestId('Login')).toBeInTheDocument();
+    expect(() => getByText(/testName/i)).toThrow();
   });
 });

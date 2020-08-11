@@ -33,7 +33,7 @@ function App() {
 
   return (
     <CookiesProvider>
-      <div className="App">
+      <div className="App" data-testid="App">
         {name ? (
           <div className="mainPage">
             <div className={styles.appHeader}>
