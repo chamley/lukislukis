@@ -5,29 +5,10 @@ import ApiService from '../../Services/ApiService';
 
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
-function Tools({ canvas, socket, name, id, lock }) {
+function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
   const [brushSize, setBrushSize] = useState(50);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
-
-  const save = () => {
-    setTimeout(() => {
-      const canvasData = JSON.stringify(canvas.toJSON());
-      if (canvas && canvasData.length < MAX_SIZE) {
-        const body = {
-          _id: id,
-          canvasData,
-        };
-        ApiService.createResource('canvas', body, 'PUT');
-        socket.emit('save', {
-          data: canvasData,
-          id,
-        });
-      } else {
-        alert('Your canvas is too big!!');
-      }
-    }, 1);
-  };
 
   const isDisabled = () => {
     return lock.name !== name && lock.name !== undefined;
@@ -36,7 +17,7 @@ function Tools({ canvas, socket, name, id, lock }) {
   const clear = () => {
     canvasLock();
     canvas.clear();
-    save();
+    saveCanvas();
   };
 
   const canvasLock = () => {
@@ -93,7 +74,7 @@ function Tools({ canvas, socket, name, id, lock }) {
       selectable: true,
     });
     canvas.add(rectangle).setActiveObject(rectangle);
-    save();
+    saveCanvas();
   };
 
   const addTriangle = () => {
@@ -108,7 +89,7 @@ function Tools({ canvas, socket, name, id, lock }) {
       angle: 15,
     });
     canvas.add(triangle).setActiveObject(triangle);
-    save();
+    saveCanvas();
   };
 
   const addCircle = () => {
@@ -122,7 +103,7 @@ function Tools({ canvas, socket, name, id, lock }) {
     });
     circle.set('selectable', true);
     canvas.add(circle).setActiveObject(circle);
-    save();
+    saveCanvas();
   };
 
   return (
@@ -158,9 +139,6 @@ function Tools({ canvas, socket, name, id, lock }) {
             <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button className={styles.saveButton} disabled={isDisabled()} onClick={save}>
-          send
-        </button>
         <button className={styles.clearButton} disabled={isDisabled()} onClick={clear}>
           clear
         </button>

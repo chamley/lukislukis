@@ -91,7 +91,14 @@ function Canvas({ name, socket }) {
           <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>
-          <Tools canvas={canvas} socket={socket} name={name} id={id} lock={lock} />
+          <Tools
+            canvas={canvas}
+            socket={socket}
+            name={name}
+            id={id}
+            saveCanvas={saveCanvas}
+            lock={lock}
+          />
           <div className="userList">
             <UserList socket={socket} />
           </div>
