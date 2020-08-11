@@ -24,4 +24,20 @@ describe('My First Test', () => {
       .click()
       .then(() => expect(stub.getCall(0)).to.be.calledWith('must enter a name'));
   });
+
+  it(`Log in as 'Bello'`, () => {
+    cy.get('input')
+      .then(($input) => {
+        const className = $input[0].classList[0];
+        expect(className.includes('formElement')).to.be.true;
+        expect($input.attr('name')).to.equal('login');
+        expect($input.val()).to.equal('');
+      });
+    cy.get('input').type('Bello');
+    cy.get('button')
+      .then(($button) => {
+        expect($button.text()).to.equal('Enter');
+        $button.click();
+      });
+  });
 });
