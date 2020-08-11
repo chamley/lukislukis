@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const app = require('./app');
 
-const PORT = process.env.SERVER_PORT || 8080;
+const PORT = process.env.PORT || 8080;
+
+DB_URL = process.env.DATABASE_URL || process.env.MONGO_URL
+
+
 
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

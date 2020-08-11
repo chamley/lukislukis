@@ -7,6 +7,8 @@ let lockby = {}; // object with id:, timestamp
 
 const removeUser = (socket) => users.filter((user) => user.id !== socket.id);
 
+const PORT_VAR = process.env.PORT || 4000;
+
 io.on('connection', (socket) => {
   socket.emit('connection', socket.id);
 
@@ -64,4 +66,4 @@ io.on('connection', (socket) => {
   });
 });
 
-http.listen(4000, () => console.info('listening on *:4000'));
+http.listen(PORT, () => console.info(`listening on *:${PORT_VAR}`));
