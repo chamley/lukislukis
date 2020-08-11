@@ -22,18 +22,12 @@ const canvas = {
   },
   _objects: [],
 };
-const lock = {
-  name: 'blabla',
-};
-let name = 'blabla';
 
-const socket = {
-  emit: jest.fn(),
-};
+const saveCanvas = jest.fn();
 
 describe('<Tools /> for the active user', () => {
   beforeEach(() => {
-    render(<Tools canvas={canvas} socket={socket} name={name} lock={lock} />);
+    render(<Tools canvas={canvas} saveCanvas={saveCanvas} />);
   });
 
   afterEach(() => {
@@ -42,8 +36,7 @@ describe('<Tools /> for the active user', () => {
   });
 
   test('it should mount', () => {
-    const tools = screen.getByTestId('Tools');
-    expect(tools).toBeInTheDocument();
+    expect(screen.getByTestId('Tools')).toBeInTheDocument();
   });
 
   it('Clicking on the drawing-mode button should switch drawing modes', () => {
@@ -90,73 +83,30 @@ describe('<Tools /> for the active user', () => {
   it('Clicking on rectangle should create a new rectangle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush square'));
-    expect(canvas._objects[0].type).toBe('rectangle');
+    expect(canvas._objects[0].type).toBe('rect');
+    expect(saveCanvas).toHaveBeenCalledTimes(1);
   });
 
   it('Clicking on triangle should create a new triangle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush triangle'));
-    expect(canvas._objects).toHaveLength(1);
+    expect(canvas._objects[0].type).toBe('triangle');
+    expect(saveCanvas).toHaveBeenCalledTimes(1);
   });
 
   it('Clicking on circle should create a new circle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush circle'));
-    expect(canvas._objects).toHaveLength(1);
+    expect(canvas._objects[0].type).toBe('circle');
+    expect(saveCanvas).toHaveBeenCalledTimes(1);
   });
 
   it('Clicking on clear should reset the canvas', () => {
     fireEvent.click(screen.getByAltText('brush circle'));
     expect(canvas._objects).toHaveLength(1);
-    expect(screen.getByText('clear')).not.toHaveAttribute('disabled');
+    jest.clearAllMocks();
     fireEvent.click(screen.getByText('clear'));
     expect(canvas._objects).toHaveLength(0);
-  });
-
-  it('Clicking on save should trigger the save function', () => {
-    expect(screen.getByText('send')).not.toHaveAttribute('disabled');
-    fireEvent.click(screen.getByText('send'));
-    expect(socket.emit).toHaveBeenCalledTimes(1);
-  });
-
-  it('Saving a Canvas too big should alert an error', () => {
-    canvas.toJSON = () => Array(5000000).fill(1);
-    const unmockedAlert = window.alert;
-    window.alert = jest.fn();
-    expect(screen.getByText('send')).not.toHaveAttribute('disabled');
-    fireEvent.click(screen.getByText('send'));
-    expect(socket.emit).toHaveBeenCalledTimes(0);
-    expect(window.alert).toHaveBeenCalledTimes(1);
-    window.alert = unmockedAlert;
-  });
-});
-
-describe('<Tools /> for inactive user', () => {
-  beforeEach(() => {
-    render(<Tools canvas={canvas} socket={socket} name={'anotherUser'} lock={lock} />);
-  });
-
-  it('Clear button should be disabled', () => {
-    expect(screen.getByText('clear')).toHaveAttribute('disabled');
-    fireEvent.click(screen.getByAltText('brush circle'));
-    expect(canvas._objects).toHaveLength(1);
-    fireEvent.click(screen.getByText('clear'));
-    expect(canvas._objects).toHaveLength(1);
-  });
-
-  it('Save button should be disabled', () => {
-    expect(screen.getByText('send')).toHaveAttribute('disabled');
-    fireEvent.click(screen.getByText('send'));
-    expect(socket.emit).toHaveBeenCalledTimes(0);
-  });
-});
-
-describe('<Tools /> when no one is drawing', () => {
-  it('Clear button should lock isDrawing for the current user', () => {
-    render(<Tools canvas={canvas} socket={socket} name={name} lock={{}} />);
-    expect(screen.getByText('clear')).not.toHaveAttribute('disabled');
-    fireEvent.click(screen.getByText('clear'));
-    expect(canvas._objects).toHaveLength(0);
-    expect(socket.emit).toHaveBeenCalledTimes(1);
+    expect(saveCanvas).toHaveBeenCalledTimes(1);
   });
 });

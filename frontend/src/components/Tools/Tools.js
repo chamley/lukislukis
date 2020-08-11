@@ -1,45 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
-import ApiService from '../../Services/ApiService';
 
-const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
-
-function Tools({ canvas, socket, name, id, lock }) {
-  const [brushSize, setBrushSize] = useState(50);
+function Tools({ canvas, saveCanvas }) {
+  const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
 
-  const save = () => {
-    const canvasData = JSON.stringify(canvas.toJSON());
-    if (canvas && canvasData.length < MAX_SIZE) {
-      const body = {
-        _id: id,
-        canvasData,
-      };
-      ApiService.createResource('canvas', body, 'PUT');
-      socket.emit('save', {
-        data: canvasData,
-        id,
-      });
-    } else {
-      alert('Your canvas is too big!!');
-    }
-  };
-
-  const isDisabled = () => {
-    return lock.name !== name && lock.name !== undefined;
-  };
-
   const clear = () => {
-    canvasLock();
     canvas.clear();
-  };
-
-  const canvasLock = () => {
-    if (!lock.name) {
-      socket.emit('lock', name);
-    }
+    saveCanvas();
   };
 
   const changeColor = ({ target }) => {
@@ -80,16 +50,17 @@ function Tools({ canvas, socket, name, id, lock }) {
 
   const addRectangle = () => {
     setDrawingMode(false);
-    const rect = new fabric.Rect();
-    rect.set({
-      type: 'rectangle',
-      width: 100,
-      height: 61.8,
+    const rectangle = new fabric.Rect();
+    rectangle.set({
+      type: 'rect',
+      width: brushSize * 1.618 * 4,
+      height: brushSize * 4,
       fill: color,
       angle: 15,
       selectable: true,
     });
-    canvas.add(rect).setActiveObject(rect);
+    canvas.add(rectangle).setActiveObject(rectangle);
+    saveCanvas();
   };
 
   const addTriangle = () => {
@@ -97,13 +68,14 @@ function Tools({ canvas, socket, name, id, lock }) {
     const triangle = new fabric.Triangle();
     triangle.set({
       type: 'triangle',
-      width: 100,
-      height: 86.6,
+      width: brushSize * 4,
+      height: brushSize * 0.866 * 4,
       fill: color,
       selectable: true,
       angle: 15,
     });
     canvas.add(triangle).setActiveObject(triangle);
+    saveCanvas();
   };
 
   const addCircle = () => {
@@ -111,12 +83,12 @@ function Tools({ canvas, socket, name, id, lock }) {
     const circle = new fabric.Circle();
     circle.set({
       type: 'circle',
-      radius: 100,
+      radius: brushSize * 2,
       fill: color,
       selectable: true,
     });
-    circle.set('selectable', true);
     canvas.add(circle).setActiveObject(circle);
+    saveCanvas();
   };
 
   return (
@@ -152,10 +124,7 @@ function Tools({ canvas, socket, name, id, lock }) {
             <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button className={styles.saveButton} disabled={isDisabled()} onClick={save}>
-          send
-        </button>
-        <button className={styles.clearButton} disabled={isDisabled()} onClick={clear}>
+        <button className={styles.clearButton} onClick={clear}>
           clear
         </button>
       </div>
