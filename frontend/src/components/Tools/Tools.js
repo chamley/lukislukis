@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
 
-function Tools({ canvas, saveCanvas }) {
+function Tools({ canvas, saveCanvas, setSelectedTool }) {
   const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
@@ -23,20 +23,31 @@ function Tools({ canvas, saveCanvas }) {
   const changeBrushType = (type) => (e) => {
     if (type === 'bubbles') {
       canvas.freeDrawingBrush = new fabric.CircleBrush(canvas);
+      setSelectedTool('bubbles');
     }
     if (type === 'spray') {
       canvas.freeDrawingBrush = new fabric.SprayBrush(canvas);
+      setSelectedTool('spray');
     }
     if (type === 'pencil') {
       canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+      setSelectedTool('pencil');
     }
     canvas.freeDrawingBrush.width = brushSize;
     canvas.freeDrawingBrush.color = color;
     setDrawingMode(true);
     canvas.isDrawingMode = drawingMode;
+    console.log(canvas);
   };
 
   const toggleDrawingMode = () => {
+    if (drawingMode) setSelectedTool('');
+    else {
+      const selector = Object.keys(canvas.freeDrawingBrush);
+      if (selector.indexOf('points') !== -1) setSelectedTool('bubbles');
+      if (selector.indexOf('_points') !== -1) setSelectedTool('pencil');
+      if (selector.indexOf('sprayChunks') !== -1) setSelectedTool('spray');
+    }
     setDrawingMode(!drawingMode);
   };
 
@@ -50,6 +61,7 @@ function Tools({ canvas, saveCanvas }) {
 
   const addRectangle = () => {
     setDrawingMode(false);
+    setSelectedTool('');
     const rectangle = new fabric.Rect();
     rectangle.set({
       type: 'rect',
@@ -65,6 +77,7 @@ function Tools({ canvas, saveCanvas }) {
 
   const addTriangle = () => {
     setDrawingMode(false);
+    setSelectedTool('');
     const triangle = new fabric.Triangle();
     triangle.set({
       type: 'triangle',
@@ -80,6 +93,7 @@ function Tools({ canvas, saveCanvas }) {
 
   const addCircle = () => {
     setDrawingMode(false);
+    setSelectedTool('');
     const circle = new fabric.Circle();
     circle.set({
       type: 'circle',
