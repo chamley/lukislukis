@@ -4,6 +4,8 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongod = new MongoMemoryServer();
 require('dotenv').config();
+const Canvas = require('../models/canvas');
+const controller = require('../controller');
 const app = require('../app');
 
 describe('Paths not on router', () => {
@@ -75,6 +77,37 @@ describe('Paths on router', () => {
         Object.keys(body).forEach((key) => {
           mainCanvas[key] = body[key];
         });
+        done();
+      });
+  });
+
+  test('GET to "/main-canvas" -> network error (500, body)', async (done) => {
+    const findOne = jest.spyOn(Canvas, 'findOne');
+    const getMainCanvas = jest.spyOn(controller, 'getMainCanvas');
+    findOne.mockImplementation(async () => Promise.reject(Error('Network error!')));
+    getMainCanvas.mockImplementation(async (req, res) => {
+      try {
+        await Canvas.findOne();
+        res.statusCode = 200;
+        return res;
+      } catch (err) {
+        res.statusCode = 500;
+        res.body = {
+          msg: err,
+        };
+        return res;
+      }
+    });
+
+    getMainCanvas({}, {})
+      .then((res) => {
+        const { body, statusCode } = res;
+        expect(statusCode).toBeDefined();
+        expect(statusCode).toBe(500);
+        expect(body).toBeDefined();
+        expect(body).toEqual({ msg: Error('Network error!') });
+        findOne.mockRestore();
+        getMainCanvas.mockRestore();
         done();
       });
   });
