@@ -90,19 +90,19 @@ describe('<Tools /> for the active user', () => {
   it('Clicking on rectangle should create a new rectangle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush square'));
-    expect(canvas._objects[0].type).toBe('rectangle');
+    expect(canvas._objects[0].type).toBe('rect');
   });
 
   it('Clicking on triangle should create a new triangle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush triangle'));
-    expect(canvas._objects).toHaveLength(1);
+    expect(canvas._objects[0].type).toBe('triangle');
   });
 
   it('Clicking on circle should create a new circle', () => {
     expect(canvas._objects).toHaveLength(0);
     fireEvent.click(screen.getByAltText('brush circle'));
-    expect(canvas._objects).toHaveLength(1);
+    expect(canvas._objects[0].type).toBe('circle');
   });
 
   it('Clicking on clear should reset the canvas', () => {

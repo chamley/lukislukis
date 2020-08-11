@@ -5,6 +5,8 @@ import Tools from '../Tools/Tools';
 import ApiService from '../../Services/ApiService';
 import UserList from '../UserList/UserList';
 
+const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
+
 function Canvas({ name, socket }) {
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
@@ -63,16 +65,29 @@ function Canvas({ name, socket }) {
     });
   }, []);
 
-  const canvasLock = () => {
-    if (!lock.name) {
-      socket.emit('lock', name);
-    }
+  const saveCanvas = () => {
+    setTimeout(() => {
+      const canvasData = JSON.stringify(canvas.toJSON());
+      if (canvas && canvasData.length < MAX_SIZE) {
+        const body = {
+          _id: id,
+          canvasData,
+        };
+        ApiService.createResource('canvas', body, 'PUT');
+        socket.emit('save', {
+          data: canvasData,
+          id,
+        });
+      } else {
+        alert('Your canvas is too big!!');
+      }
+    }, 1);
   };
 
   return (
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
-        <div onClick={canvasLock} role="canvas">
+        <div onMouseUp={saveCanvas} role="canvas">
           <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>

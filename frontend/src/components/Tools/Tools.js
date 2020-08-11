@@ -11,20 +11,22 @@ function Tools({ canvas, socket, name, id, lock }) {
   const [drawingMode, setDrawingMode] = useState(true);
 
   const save = () => {
-    const canvasData = JSON.stringify(canvas.toJSON());
-    if (canvas && canvasData.length < MAX_SIZE) {
-      const body = {
-        _id: id,
-        canvasData,
-      };
-      ApiService.createResource('canvas', body, 'PUT');
-      socket.emit('save', {
-        data: canvasData,
-        id,
-      });
-    } else {
-      alert('Your canvas is too big!!');
-    }
+    setTimeout(() => {
+      const canvasData = JSON.stringify(canvas.toJSON());
+      if (canvas && canvasData.length < MAX_SIZE) {
+        const body = {
+          _id: id,
+          canvasData,
+        };
+        ApiService.createResource('canvas', body, 'PUT');
+        socket.emit('save', {
+          data: canvasData,
+          id,
+        });
+      } else {
+        alert('Your canvas is too big!!');
+      }
+    }, 1);
   };
 
   const isDisabled = () => {
@@ -34,6 +36,7 @@ function Tools({ canvas, socket, name, id, lock }) {
   const clear = () => {
     canvasLock();
     canvas.clear();
+    save();
   };
 
   const canvasLock = () => {
@@ -80,16 +83,17 @@ function Tools({ canvas, socket, name, id, lock }) {
 
   const addRectangle = () => {
     setDrawingMode(false);
-    const rect = new fabric.Rect();
-    rect.set({
-      type: 'rectangle',
+    const rectangle = new fabric.Rect();
+    rectangle.set({
+      type: 'rect',
       width: 100,
       height: 61.8,
       fill: color,
       angle: 15,
       selectable: true,
     });
-    canvas.add(rect).setActiveObject(rect);
+    canvas.add(rectangle).setActiveObject(rectangle);
+    save();
   };
 
   const addTriangle = () => {
@@ -104,6 +108,7 @@ function Tools({ canvas, socket, name, id, lock }) {
       angle: 15,
     });
     canvas.add(triangle).setActiveObject(triangle);
+    save();
   };
 
   const addCircle = () => {
@@ -117,6 +122,7 @@ function Tools({ canvas, socket, name, id, lock }) {
     });
     circle.set('selectable', true);
     canvas.add(circle).setActiveObject(circle);
+    save();
   };
 
   return (
