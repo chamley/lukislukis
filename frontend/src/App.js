@@ -5,7 +5,8 @@ import Canvas from './components/Canvas/Canvas.js';
 import Login from './components/Login/Login.js';
 import io from 'socket.io-client';
 
-const socket = io(process.env.REACT_APP_IO_URL);
+//const socket = io(process.env.REACT_APP_IO_URL);
+const socket = io(process.env.REACT_APP_API_PROD_URL);
 
 function App() {
   const [name, setName] = useState('');
