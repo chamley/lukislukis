@@ -2,12 +2,16 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+io.origins('*:*');
+
 let users = []; // object with id: string, name: string;
 let lockby = {}; // object with id:, timestamp
 
 const removeUser = (socket) => users.filter((user) => user.id !== socket.id);
 
 const PORT_VAR = process.env.PORT || 4000;
+
+
 
 io.on('connection', (socket) => {
   socket.emit('connection', socket.id);
