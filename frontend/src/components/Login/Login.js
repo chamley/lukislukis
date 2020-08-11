@@ -5,7 +5,7 @@ function Login({ setName }) {
   const [nameInput, setNameInput] = useState('');
 
   const handleSubmit = (e) => {
-    if (!nameInput) return alert('must enter a name');
+    if (!nameInput) return alert('You have to enter a username!');
     setName(nameInput);
   };
 
@@ -15,7 +15,7 @@ function Login({ setName }) {
 
   return (
     <div className={styles.login} data-testid="Login">
-      <img src="/images/background.jpg" alt="light purple background" />
+      <img src="/images/loginBckg.jpg" alt="login background" />
       <div className={styles.heading}>
         <h1>Lukis</h1>
       </div>
