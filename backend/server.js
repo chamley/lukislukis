@@ -4,8 +4,8 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 8080;
 
-DB_URL = process.env.MONGODB_URI
-
+const DB_URL = process.env.MONGODB_URI
+console.log(DB_URL);
 
 
 mongoose
