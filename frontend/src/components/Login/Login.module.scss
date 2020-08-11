@@ -1,5 +1,4 @@
 .login {
-  /* Full height */
   height: 100%;
   width: 100%;
   display: flex;
@@ -13,20 +12,17 @@
   }
 
   .heading {
-    color: white;
     display: flex;
     flex-direction: column;
-    color: whitesmoke;
     margin: 1rem;
     align-self: center;
     justify-content: center;
     border-radius: 2rem;
 
     h1 {
-      font-size: 100px;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: bold;
-      letter-spacing: 2rem;
+      color: #F0FFFF;
+      font-size: 120px;
+      letter-spacing: 1rem;
       line-height: 1;
       text-align: center;
       -webkit-font-smoothing: none;
@@ -36,8 +32,8 @@
   .loginForm {
     display: flex;
     flex-direction: column;
-    background-color: rgba(225, 20, 92, 0.48);
-    color: whitesmoke;
+    background-color: rgba(225, 20, 92, 0.3);
+    color: #F0FFFF;
     margin-top: 10rem;
     margin-bottom: 5rem;
     padding: 10rem 5rem;
@@ -64,28 +60,42 @@
     text-align: center;
   }
 
+  label {
+    width: 100%;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .formElement {
+    color: #F0FFFF;
+    margin: 0.5rem 0;
+    width: 100%;
+    font-size: 25px;
+  }
+
   button {
-    background-color: white; /* Green */
-    border: none;
+    border: 3px solid #00e699;
+    background-color: rgba(225, 20, 92, 0.3);
     border-radius: 1rem;
-    color: green;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    border: 3px solid #4caf50;
     cursor: pointer;
-    align-self: center;
+    transition: background-color 0.5s;
   }
 
-  label {
-    width: 100%;
+  button:focus {
+    outline: none;
   }
 
-  .formElement {
-    margin: 0.5rem 0;
-    width: 100%;
+  button:hover {
+    background-color: #00e699;
+    transition: background-color 0.5s;
   }
+
 }

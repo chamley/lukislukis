@@ -6,15 +6,13 @@
   border-image: linear-gradient(
       to right,
       #efee9d 25%,
-      #efbbcf 25%,
-      #efbbcf 50%,
-      #efee9d 50%,
+      #00e699 25%,
+      #efee9d 60%,
       #efee9d 75%,
-      #dbc6eb 75%
+      #00e699 75%
     )
-    5;
+    4;
   padding: 1rem;
-  box-shadow: 11px 17px 34px -10px #e5c3f0;
 
   .listHeader {
     span {
