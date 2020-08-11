@@ -2,6 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Tools from './Tools';
+import ApiService from '../../Services/ApiService';
+
+jest.mock('../../Services/ApiService');
+ApiService.createResource.mockResolvedValue(true);
 
 const canvas = {
   add: function () {
@@ -114,6 +118,17 @@ describe('<Tools /> for the active user', () => {
     fireEvent.click(screen.getByText('send'));
     expect(socket.emit).toHaveBeenCalledTimes(1);
   });
+
+  it('Saving a Canvas too big should alert an error', () => {
+    canvas.toJSON = () => Array(5000000).fill(1);
+    const unmockedAlert = window.alert;
+    window.alert = jest.fn();
+    expect(screen.getByText('send')).not.toHaveAttribute('disabled');
+    fireEvent.click(screen.getByText('send'));
+    expect(socket.emit).toHaveBeenCalledTimes(0);
+    expect(window.alert).toHaveBeenCalledTimes(1);
+    window.alert = unmockedAlert;
+  });
 });
 
 describe('<Tools /> for inactive user', () => {
@@ -133,5 +148,15 @@ describe('<Tools /> for inactive user', () => {
     expect(screen.getByText('send')).toHaveAttribute('disabled');
     fireEvent.click(screen.getByText('send'));
     expect(socket.emit).toHaveBeenCalledTimes(0);
+  });
+});
+
+describe('<Tools /> when no one is drawing', () => {
+  it('Clear button should lock isDrawing for the current user', () => {
+    render(<Tools canvas={canvas} socket={socket} name={name} lock={{}} />);
+    expect(screen.getByText('clear')).not.toHaveAttribute('disabled');
+    fireEvent.click(screen.getByText('clear'));
+    expect(canvas._objects).toHaveLength(0);
+    expect(socket.emit).toHaveBeenCalledTimes(1);
   });
 });
