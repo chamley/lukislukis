@@ -6,6 +6,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open",
+    "cypress:ci": "start-test start:server-client 3000 test",
     "eject": "react-scripts eject",
     "eslint": "eslint . --ext .js",
     "pretty": "./node_modules/.bin/prettier --write './**/*.{js,json,md,css,scss}'",
@@ -27,6 +30,8 @@
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "cypress": "^4.12.1",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -36,8 +41,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
-    "prettier": "^2.0.5",
-    "@babel/preset-react": "^7.10.4"
+    "prettier": "^2.0.5"
   },
   "eslintConfig": {
     "extends": "react-app"
