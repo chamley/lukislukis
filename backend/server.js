@@ -4,7 +4,7 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 8080;
 
-DB_URL = process.env.DATABASE_URL || process.env.MONGO_URL
+DB_URL = process.env.MONGODB_URI
 
 
 
