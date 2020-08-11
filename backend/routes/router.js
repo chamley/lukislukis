@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require('../controller/controller');
+const controller = require('../controller');
 
 router.get('/main-canvas', controller.getMainCanvas);
 router.get('/canvas/:id', controller.getCanvas);
