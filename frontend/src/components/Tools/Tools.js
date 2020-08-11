@@ -6,7 +6,7 @@ import ApiService from '../../Services/ApiService';
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
 function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
-  const [brushSize, setBrushSize] = useState(50);
+  const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
 
@@ -67,8 +67,8 @@ function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
     const rectangle = new fabric.Rect();
     rectangle.set({
       type: 'rect',
-      width: 100,
-      height: 61.8,
+      width: brushSize * 1.618 * 4,
+      height: brushSize * 4,
       fill: color,
       angle: 15,
       selectable: true,
@@ -82,8 +82,8 @@ function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
     const triangle = new fabric.Triangle();
     triangle.set({
       type: 'triangle',
-      width: 100,
-      height: 86.6,
+      width: brushSize * 4,
+      height: brushSize * 0.866 * 4,
       fill: color,
       selectable: true,
       angle: 15,
@@ -97,7 +97,7 @@ function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
     const circle = new fabric.Circle();
     circle.set({
       type: 'circle',
-      radius: 100,
+      radius: brushSize * 2,
       fill: color,
       selectable: true,
     });
