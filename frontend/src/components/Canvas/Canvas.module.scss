@@ -4,10 +4,13 @@
     flex-direction: row;
     justify-content: space-around;
     margin: 2rem 2rem 1.5rem 1.5rem;
-    canvas {
-      box-shadow: 11px 17px 34px -10px #e5c3f0;
-    }
   }
+  .canvasWrapper {
+    border: none;
+    box-shadow: 5px 5px 20px #808080;
+    background-color: #FFFFFF;
+  }
+
   .toolbox {
     margin-left: 2rem;
   }
@@ -25,9 +28,8 @@
   }
 
   .loader {
-    border: 1px dotted gray;
-    width: 1150px;
-    height: 723px;
+    width: 60vw;
+    height: 75vh;
     display: 'flex';
     flex-direction: 'row';
     justify-content: 'center';
