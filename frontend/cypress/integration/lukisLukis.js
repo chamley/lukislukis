@@ -49,4 +49,13 @@ describe('My First Test', () => {
       .click()
       .contains('Exit drawing mode')
   });
+
+  it('Check range input element properties', () => {
+    cy.get('#rangeInput')
+      .then(($range) => {
+        expect(Number($range.attr('min'))).to.equal(1);
+        expect(Number($range.attr('max'))).to.equal(100);
+        expect(Number($range.val())).to.equal(50);
+    });
+  });
 });
