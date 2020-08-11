@@ -12,7 +12,7 @@ import Login from './Login';
 describe('<login />', () => {
   test('a login should be rendered', () => {
     render(<Login />);
-    const login = screen.getByTestId('login');
+    const login = screen.getByTestId('Login');
     expect(login).toBeInTheDocument();
   });
 

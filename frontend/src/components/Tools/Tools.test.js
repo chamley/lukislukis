@@ -2,6 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Tools from './Tools';
+import ApiService from '../../Services/ApiService';
+
+jest.mock('../../Services/ApiService');
+ApiService.createResource.mockResolvedValue(true);
 
 const canvas = {
   add: function () {
