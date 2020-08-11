@@ -7,7 +7,7 @@ $button-height: 4rem;
   flex-wrap: wrap;
   padding: 1rem;
   background-color: #e4f0f2;
-  box-shadow: 11px 17px 34px -10px #e5c3f0;
+  opacity: 0.9;
   width: 8rem;
   margin: 1rem 1rem 1rem 3rem;
   border-radius: 1rem;
@@ -19,15 +19,19 @@ $button-height: 4rem;
       height: $button-height-half;
       width: 100%;
       border: none;
-      background-color: #e08484;
+      background-color: #33ffbb;
+      font-size: 15px;
       border-radius: 0.5rem;
-      color: #ffff;
+      color: darkslategray;
+      font-family: 'Permanent Marker', cursive;
       cursor: pointer;
       margin-top: 0.5rem;
+      outline: none;
     }
 
     button:hover {
-      background-color: #cf6e6e;
+      outline: none;
+      background-color:	#00e699;
     }
 
     input {
@@ -43,7 +47,7 @@ $button-height: 4rem;
       button {
         border-radius: 1rem;
         border: none;
-        background-color: #e5c3f0;
+        background-color: #efee9d;
         margin: 0.2rem;
         width: 3.6rem;
         height: $button-height;
@@ -53,7 +57,7 @@ $button-height: 4rem;
         }
       }
       button:hover {
-        background-color: #cf6e6e;
+        background-color: #dfdc3a;
       }
     }
   }
