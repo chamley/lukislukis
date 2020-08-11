@@ -11,28 +11,6 @@ function Canvas({ socket }) {
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
 
-  const initCanvas = () => {
-    return new fabric.Canvas('main-canvas', {
-      preserveObjectStacking: true,
-      height: window.innerHeight * 0.75,
-      width: window.innerWidth * 0.6,
-      backgroundColor: 'white',
-      isDrawingMode: true,
-    });
-  };
-
-  useEffect(() => {
-    socket.on('connection', (data) => setId(data));
-    socket.on('saving', (data) => {
-      if (Object.keys(canvas).length > 1) {
-        canvas.loadFromJSON(JSON.parse(data.data), () => {
-          setCanvas(canvas);
-          canvas.renderAll();
-        });
-      }
-    });
-  }, [canvas, socket]);
-
   useEffect(() => {
     ApiService.getResource('main-canvas').then((data) => {
       setId(data._id);
@@ -47,6 +25,28 @@ function Canvas({ socket }) {
       }
     });
   }, []);
+
+  useEffect(() => {
+    socket.on('connection', (data) => setId(data));
+    socket.on('saving', (data) => {
+      if (Object.keys(canvas).length > 1) {
+        canvas.loadFromJSON(JSON.parse(data.data), () => {
+          setCanvas(canvas);
+          canvas.renderAll();
+        });
+      }
+    });
+  }, [canvas, socket]);
+
+  const initCanvas = () => {
+    return new fabric.Canvas('main-canvas', {
+      preserveObjectStacking: true,
+      height: window.innerHeight * 0.75,
+      width: window.innerWidth * 0.6,
+      backgroundColor: 'white',
+      isDrawingMode: true,
+    });
+  };
 
   const saveCanvas = () => {
     setTimeout(() => {
