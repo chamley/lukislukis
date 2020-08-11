@@ -6,7 +6,7 @@ const router = require('./routes/router');
 const app = express();
 
 
-
+const x = '';
 
 app.use(cors({
   origin:'https://fe-lukislukis.herokuapp.com',
