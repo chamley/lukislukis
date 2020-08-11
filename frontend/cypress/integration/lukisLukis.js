@@ -15,4 +15,13 @@ describe('My First Test', () => {
     cy.get('label').contains('Please Enter Your Name');
     cy.get('h1').contains('Lukis');
   });
+
+  it('Try to log in without username -> alert', () => {
+    const stub = cy.stub()
+    cy.on('window:alert', stub);
+    cy
+      .get('button')
+      .click()
+      .then(() => expect(stub.getCall(0)).to.be.calledWith('must enter a name'));
+  });
 });
