@@ -7,36 +7,19 @@ import UserList from '../UserList/UserList';
 
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
-function Canvas({ name, socket }) {
+function Canvas({ socket }) {
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
-  const [lock, setLock] = useState({});
 
   const initCanvas = () => {
     return new fabric.Canvas('main-canvas', {
       preserveObjectStacking: true,
       height: window.innerHeight * 0.75,
       width: window.innerWidth * 0.6,
-      backgroundColor: 'cyan',
+      backgroundColor: 'white',
       isDrawingMode: true,
     });
   };
-
-  useEffect(() => {
-    socket.emit('getLocks');
-    socket.on('locks', (data) => {
-      setLock(() => data);
-      if (Object.keys(canvas).length > 0) {
-        if (data.name && data.name !== name) {
-          canvas.isDrawingMode = false;
-          canvas.forEachObject((obj) => (obj.selectable = false));
-        } else {
-          // canvas.isDrawingMode = true;
-          canvas.forEachObject((obj) => (obj.selectable = true));
-        }
-      }
-    });
-  }, [canvas, name, socket]);
 
   useEffect(() => {
     socket.on('connection', (data) => setId(data));
@@ -91,24 +74,12 @@ function Canvas({ name, socket }) {
           <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>
-          <Tools
-            canvas={canvas}
-            socket={socket}
-            name={name}
-            id={id}
-            saveCanvas={saveCanvas}
-            lock={lock}
-          />
+          <Tools canvas={canvas} saveCanvas={saveCanvas} />
           <div className="userList">
             <UserList socket={socket} />
           </div>
         </div>
       </div>
-      {lock.name ? (
-        <div className={styles.status}>{lock.name} is currently drawing...</div>
-      ) : (
-        <div></div>
-      )}
     </div>
   );
 }

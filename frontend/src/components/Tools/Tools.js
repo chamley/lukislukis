@@ -1,29 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
-import ApiService from '../../Services/ApiService';
 
-const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
-
-function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
+function Tools({ canvas, saveCanvas }) {
   const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
 
-  const isDisabled = () => {
-    return lock.name !== name && lock.name !== undefined;
-  };
-
   const clear = () => {
-    canvasLock();
     canvas.clear();
     saveCanvas();
-  };
-
-  const canvasLock = () => {
-    if (!lock.name) {
-      socket.emit('lock', name);
-    }
   };
 
   const changeColor = ({ target }) => {
@@ -101,7 +87,6 @@ function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
       fill: color,
       selectable: true,
     });
-    circle.set('selectable', true);
     canvas.add(circle).setActiveObject(circle);
     saveCanvas();
   };
@@ -139,7 +124,7 @@ function Tools({ canvas, socket, name, id, saveCanvas, lock }) {
             <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button className={styles.clearButton} disabled={isDisabled()} onClick={clear}>
+        <button className={styles.clearButton} onClick={clear}>
           clear
         </button>
       </div>
