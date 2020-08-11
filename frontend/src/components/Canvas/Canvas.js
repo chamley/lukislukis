@@ -71,8 +71,12 @@ function Canvas({ socket }) {
   return (
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
-        <div className={selectedTool} onMouseUp={saveCanvas} role="canvas">
-          <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
+        <div onMouseUp={saveCanvas} role="canvas">
+          <canvas
+            className={styles[selectedTool]}
+            style={{ border: 'solid 1px #eee' }}
+            id="main-canvas"
+          ></canvas>
         </div>
         <div className={styles.toolbox}>
           <Tools canvas={canvas} saveCanvas={saveCanvas} setSelectedTool={setSelectedTool} />
