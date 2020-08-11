@@ -41,6 +41,11 @@ describe('My First Test', () => {
       });
   });
 
+  it('Check if canvas is loaded', () => {
+    cy.get('[data-testid="Canvas"]')
+    cy.get('#main-canvas')
+  });
+
   it('Toggle drawing mode button', () => {
     cy
       .get('#toggleDraw')
