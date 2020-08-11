@@ -10,4 +10,9 @@ describe('My First Test', () => {
       expect($img[0].naturalHeight).to.be.greaterThan(0)
     });
   });
+
+  it('Check if main screen labels are correct', () => {
+    cy.get('label').contains('Please Enter Your Name');
+    cy.get('h1').contains('Lukis');
+  });
 });
