@@ -40,4 +40,13 @@ describe('My First Test', () => {
         $button.click();
       });
   });
+
+  it('Toggle drawing mode button', () => {
+    cy
+      .get('#toggleDraw')
+      .click()
+      .contains('Start drawing mode')
+      .click()
+      .contains('Exit drawing mode')
+  });
 });
