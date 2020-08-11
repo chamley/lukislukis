@@ -1,0 +1,26 @@
+@keyframes spin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+.Loader {
+  height: 722px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .spinner {
+    border: 10px solid rgba(0, 0, 0, 0.1);
+    border-top: 10px solid #767676;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.2s linear infinite;
+  };
+}
+
+
+
+
+

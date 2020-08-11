@@ -22,6 +22,16 @@
     padding: 1rem;
     font-size: 120%;
     font-weight: bold;
-    font-family: monospace;
+  }
+
+  .loader {
+    border: 1px dotted gray;
+    width: 1150px;
+    height: 723px;
+    display: 'flex';
+    flex-direction: 'row';
+    justify-content: 'center';
+    align-items: 'center';
   }
 }
+

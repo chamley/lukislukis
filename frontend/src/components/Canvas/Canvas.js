@@ -4,10 +4,12 @@ import { fabric } from 'fabric';
 import Tools from '../Tools/Tools';
 import ApiService from '../../Services/ApiService';
 import UserList from '../UserList/UserList';
+import Loader from '../Loader/Loader';
 
 const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 
 function Canvas({ socket }) {
+  const [loaded, setLoaded] = useState(false);
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
 
@@ -15,6 +17,7 @@ function Canvas({ socket }) {
     ApiService.getResource('main-canvas').then((data) => {
       setId(data._id);
       if (data.canvasData) {
+        setLoaded(true);
         const importCanvas = initCanvas();
         importCanvas.loadFromJSON(data.canvasData, () => {
           setCanvas(importCanvas);
@@ -70,9 +73,15 @@ function Canvas({ socket }) {
   return (
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
-        <div onMouseUp={saveCanvas} role="canvas">
-          <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
-        </div>
+        {!loaded ? (
+          <div className={styles.loader}>
+            <Loader />
+          </div>
+        ) : (
+          <div onMouseUp={saveCanvas} role="canvas">
+            <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
+          </div>
+        )}
         <div className={styles.toolbox}>
           <Tools canvas={canvas} saveCanvas={saveCanvas} />
           <div className="userList">
