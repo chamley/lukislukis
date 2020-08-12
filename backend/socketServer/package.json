@@ -1,0 +1,22 @@
+{
+  "name": "socket_io_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "soServer.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit --maxWorkers=10",
+    "start": "nodemon soServer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "jest": "^26.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}

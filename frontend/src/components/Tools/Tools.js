@@ -1,83 +1,54 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Tools.module.scss";
-import { fabric } from "fabric";
-import { BrushTypes } from "../../domain/brushTypes";
-import bubbles from "../../images/bubbles.jpg";
-import circle from "../../images/circle.png";
-import pencil from "../../images/pencil.png";
-import spray from "../../images/spray.png";
-import square from "../../images/square.png";
-import triangle from "../../images/triangle.png";
-import ApiService from "../../ApiService";
+import React, { useEffect, useState } from 'react';
+import styles from './Tools.module.scss';
+import { fabric } from 'fabric';
 
-const MAX_SIZE = 5_000_000;
-
-function Tools({ canvas, socket, name, id, lock, setLock }) {
-  const [brushSize, setBrushSize] = useState(1);
-  const [color, setColor] = useState("black");
+function Tools({ canvas, saveCanvas }) {
+  const [brushSize, setBrushSize] = useState(5);
+  const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
-
-  const save = () => {
-    console.log(canvas);
-    if (canvas && JSON.stringify(canvas.toJSON()).length < MAX_SIZE) {
-      const body = {
-        _id: id,
-        canvasData: JSON.stringify(canvas.toJSON()),
-      };
-      ApiService.createResource("canvas", body, "PUT")
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      socket.emit("save", {
-        data: JSON.stringify(body.canvasData),
-        id,
-      });
-    } else {
-      alert("Your canvas is too big!!");
-    }
-  };
-
-  const isDisabled = () => {
-    return lock.name !== name && lock.name !== undefined;
-  };
+  const [selectedTool, setSelectedTool] = useState('pencil');
 
   const clear = () => {
-    canvasLock();
     canvas.clear();
-  };
-
-  const canvasLock = () => {
-    if (!lock.name) {
-      socket.emit("lock", name);
-    }
+    saveCanvas();
   };
 
   const changeColor = ({ target }) => {
-    setColor(() => target.value);
+    setColor(target.value);
   };
 
   const changeBrushSize = ({ target }) => {
-    setBrushSize(() => {
-      return parseInt(target.value, 10) || 1;
-    });
+    setBrushSize(parseInt(target.value, 10));
   };
 
   const changeBrushType = (type) => (e) => {
-    if (type === BrushTypes.BUBBLES) {
+    if (type === 'bubbles') {
       canvas.freeDrawingBrush = new fabric.CircleBrush(canvas);
+      setSelectedTool('bubbles');
     }
-    if (type === BrushTypes.SPRAY) {
+    if (type === 'spray') {
       canvas.freeDrawingBrush = new fabric.SprayBrush(canvas);
+      setSelectedTool('spray');
     }
-    if (type === BrushTypes.PENCIL) {
+    if (type === 'pencil') {
       canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+      setSelectedTool('pencil');
     }
     canvas.freeDrawingBrush.width = brushSize;
     canvas.freeDrawingBrush.color = color;
     setDrawingMode(true);
     canvas.isDrawingMode = drawingMode;
+    console.log(canvas);
   };
 
   const toggleDrawingMode = () => {
+    if (drawingMode) setSelectedTool('');
+    else {
+      const selector = Object.keys(canvas.freeDrawingBrush);
+      if (selector.indexOf('points') !== -1) setSelectedTool('bubbles');
+      if (selector.indexOf('_points') !== -1) setSelectedTool('pencil');
+      if (selector.indexOf('sprayChunks') !== -1) setSelectedTool('spray');
+    }
     setDrawingMode(!drawingMode);
   };
 
@@ -87,81 +58,102 @@ function Tools({ canvas, socket, name, id, lock, setLock }) {
       canvas.freeDrawingBrush.color = color;
       canvas.isDrawingMode = drawingMode;
     }
-  }, [
-    canvas.freeDrawingBrush,
-    brushSize,
-    color,
-    canvas.isDrawingMode,
-    drawingMode,
-  ]);
+  }, [canvas, canvas.freeDrawingBrush, brushSize, color, canvas.isDrawingMode, drawingMode]);
 
   const addRectangle = () => {
     setDrawingMode(false);
-    const rect = new fabric.Rect();
-    rect.set("angle", 15).set("flipY", true);
-    rect.set({ width: 100, height: 80, fill: color });
-    rect.set("selectable", true);
-    canvas.add(rect).setActiveObject(rect);
+    setSelectedTool('');
+    const rectangle = new fabric.Rect();
+    rectangle.set({
+      type: 'rect',
+      width: brushSize * 1.618 * 4,
+      height: brushSize * 4,
+      fill: color,
+      angle: 15,
+      selectable: true,
+    });
+    canvas.add(rectangle).setActiveObject(rectangle);
+    saveCanvas();
   };
 
   const addTriangle = () => {
     setDrawingMode(false);
+    setSelectedTool('');
     const triangle = new fabric.Triangle();
-    triangle.set("angle", 15).set("flipY", true);
-    triangle.set({ width: 100, height: 80, fill: color });
-    triangle.set("selectable", true);
+    triangle.set({
+      type: 'triangle',
+      width: brushSize * 4,
+      height: brushSize * 0.866 * 4,
+      fill: color,
+      selectable: true,
+      angle: 15,
+    });
     canvas.add(triangle).setActiveObject(triangle);
+    saveCanvas();
   };
 
   const addCircle = () => {
     setDrawingMode(false);
+    setSelectedTool('');
     const circle = new fabric.Circle();
-    circle.set("angle", 15).set("flipY", true);
-    circle.set({ radius: 100, height: 80, fill: color });
-    circle.set("selectable", true);
+    circle.set({
+      type: 'circle',
+      radius: brushSize * 2,
+      fill: color,
+      selectable: true,
+    });
     canvas.add(circle).setActiveObject(circle);
+    saveCanvas();
   };
 
   return (
-    <div className={styles.Tools}>
+    <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
-        <button onClick={toggleDrawingMode}>
-          {drawingMode ? "Exit" : "Start"} drawing mode
-        </button>
-        <input type={"range"} min={1} max={100} onChange={changeBrushSize} />
-        <input type={"color"} onChange={changeColor} />
+        <div>
+          <button id="toggleDraw" style={{ fontSize: '12px' }} onClick={toggleDrawingMode}>
+            {drawingMode ? 'Exit' : 'Start'} drawing mode
+          </button>
+          <input
+            id="rangeInput"
+            type={'range'}
+            min={1}
+            max={100}
+            value={brushSize}
+            onChange={changeBrushSize}
+            alt="brush-size"
+          />
+          <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
+        </div>
         <div className={styles.brushButtonsContainer}>
-          <button onClick={changeBrushType(BrushTypes.BUBBLES)}>
-            <img src={bubbles} />
+          <button
+            className={styles[selectedTool === 'bubbles' ? 'active' : '']}
+            onClick={changeBrushType('bubbles')}
+          >
+            <img src="/images/bubbles.jpg" alt="brush bubbles" />
           </button>
-          <button onClick={changeBrushType(BrushTypes.SPRAY)}>
-            <img src={spray} />
+          <button
+            className={styles[selectedTool === 'spray' ? 'active' : '']}
+            onClick={changeBrushType('spray')}
+          >
+            <img src="/images/spray.png" alt="brush spray" />
           </button>
-          <button onClick={changeBrushType(BrushTypes.PENCIL)}>
-            <img src={pencil} />
+          <button
+            className={styles[selectedTool === 'pencil' ? 'active' : '']}
+            onClick={changeBrushType('pencil')}
+          >
+            <img src="/images/pencil.png" alt="brush pencil" />
           </button>
           <button onClick={addRectangle}>
-            <img src={square} />
+            <img src="/images/square.png" alt="brush square" />
           </button>
           <button onClick={addTriangle}>
-            <img src={triangle} />
+            <img src="/images/triangle.png" alt="brush triangle" />
           </button>
           <button onClick={addCircle}>
-            <img src={circle} />
+            <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button
-          className={styles.saveButton}
-          disabled={isDisabled()}
-          onClick={save}
-        >
-          send
-        </button>
-        <button
-          className={styles.clearButton}
-          disabled={isDisabled()}
-          onClick={clear}
-        >
+        <button className={styles.clearButton} onClick={clear}>
           clear
         </button>
       </div>

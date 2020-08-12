@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { CookiesProvider, useCookies } from "react-cookie";
-import styles from "./App.module.scss";
-import Canvas from "./components/Canvas/Canvas";
-import Login from "./components/login/login";
-import { Socket } from "socket.io-client";
-import io from "socket.io-client";
-import UserList from "./components/UserList/UserList";
+import React, { useEffect, useState } from 'react';
+import { CookiesProvider, useCookies } from 'react-cookie';
+import styles from './App.module.scss';
+import Canvas from './components/Canvas/Canvas.js';
+import Login from './components/Login/Login.js';
+import io from 'socket.io-client';
 
-const socket = io("http://localhost:4000");
+const socket = io(process.env.REACT_APP_IO_URL);
 
 function App() {
-  const [name, setName] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies(["name"]);
+  const [name, setName] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
 
   useEffect(() => {
     if (cookies.name) {
@@ -20,39 +18,34 @@ function App() {
   }, [cookies]);
 
   useEffect(() => {
-    if (name || name !== "") {
-      setCookie("name", name);
-      socket.emit("enter", name);
+    if (name) {
+      setCookie('name', name);
+      socket.emit('enter', name);
     } else {
-      socket.emit("leave");
-      removeCookie("name");
+      socket.emit('leave');
+      removeCookie('name');
     }
-  }, [name]);
-
-  if (!name === "") {
-    return <div className="App"></div>;
-  }
+  }, [name, setCookie, removeCookie]);
 
   const logout = () => {
-    socket.emit("leave");
-    setName("");
+    setName('');
   };
 
   return (
     <CookiesProvider>
-      <div className="App">
-        {name || name !== "" ? (
-          <div className="mainPage">
+      <div className={styles.App} data-testid="App">
+        {name ? (
+          <div className={styles.mainpage}>
             <div className={styles.appHeader}>
               <h3>Hello {name}!</h3>
               <button onClick={logout}>Logout</button>
             </div>
             <div className={styles.container}>
-              <Canvas socket={socket} name={name} setName={setName} />
+              <Canvas id="canvas" socket={socket} name={name} />
             </div>
           </div>
         ) : (
-          <Login name={name} setName={setName} />
+          <Login setName={setName} />
         )}
       </div>
     </CookiesProvider>

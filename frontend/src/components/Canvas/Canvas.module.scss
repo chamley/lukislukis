@@ -1,23 +1,35 @@
-
 .Canvas {
-
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 
   .canvasContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 2rem 2rem 1.5rem 1.5rem;
-    canvas {
-      box-shadow: 11px 17px 34px -10px #e5c3f0;
-    }
+    align-items: center;
+    height: 100%;
+    width: 100%;
   }
-      .toolbox {
-        margin-left: 2rem;
-      }
 
+  .canvasWrapper {
+    border: none;
+    box-shadow: 5px 5px 20px #808080;
+    background-color: #ffffff;
+    height: fit-content;
+  }
+
+  .toolbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 2rem;
+    width: 300px;
+  }
 
   .status {
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     border: none;
     margin: 0rem 1rem 1rem 1rem;
     text-align: center;
@@ -26,9 +38,9 @@
     padding: 1rem;
     font-size: 120%;
     font-weight: bold;
-    font-family: monospace;
   }
 
-
-
+  .hidden {
+    display: none;
+  }
 }

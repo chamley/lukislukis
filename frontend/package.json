@@ -2,10 +2,24 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open",
+    "cypress:ci": "start-test start:server-client 3000 test",
+    "eject": "react-scripts eject",
+    "eslint": "eslint . --ext .js",
+    "pretty": "./node_modules/.bin/prettier --write './**/*.{js,json,md,css,scss}'",
+    "check": "npm run eslint && npm run pretty"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "canvas": "^2.6.1",
+    "dotenv": "^8.2.0",
     "fabric": "^3.6.3",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -15,11 +29,20 @@
     "reactjs-popup": "^1.5.0",
     "socket.io-client": "^2.3.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "cypress": "^4.12.1",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-jsx-a11y": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
+    "jest-canvas-mock": "^2.2.0",
+    "prettier": "^2.0.5"
   },
   "eslintConfig": {
     "extends": "react-app"

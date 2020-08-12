@@ -1,0 +1,106 @@
+.login {
+  background-image: url('/images/loginBckg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    border-radius: 2rem;
+
+    h1 {
+      color: #f0ffff;
+      font-size: 120px;
+      letter-spacing: 1rem;
+      line-height: 1;
+      margin: 30px 0;
+      text-align: center;
+      text-shadow: 0 0 8px gray;
+      -webkit-font-smoothing: none;
+    }
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(225, 20, 92, 0.3);
+    color: #f0ffff;
+    padding: 5rem 5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+  }
+
+  input {
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+    border: 3px solid pink;
+    border-radius: 1rem;
+    padding: 14px 0;
+    text-align: center;
+  }
+
+  .formLabel {
+    color: #f0ffff;
+    font-size: 25px;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 8px gray;
+    width: 100%;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .formElement {
+    color: #f0ffff;
+    margin: 0.5rem 0;
+    width: 100%;
+    font-size: 25px;
+    height: 65px;
+  }
+
+  button {
+    border: 3px solid #00e699;
+    background-color: rgba(225, 20, 92, 0.3);
+    border-radius: 1rem;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:hover {
+    background-color: #00e699;
+    transition: background-color 0.5s;
+  }
+}
+
+@media only screen and (max-width: 1375px) {
+  .login {
+    .heading {
+      h1 {
+        font-size: 90px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1220px) {
+  .login {
+    flex-direction: column;
+  }
+}

@@ -2,17 +2,28 @@
   justify-content: center;
   align-self: center;
   align-content: center;
+  background-color: #e4f0f2;
+  opacity: 0.9;
   border: 0.5rem solid;
-  border-image:   linear-gradient(to right, #efee9d 25%, #efbbcf 25%, #efbbcf 50%, #efee9d 50%, #efee9d 75%, #dbc6eb 75%) 5;
+  box-shadow: 0 0 10px gray;
+  border-image: linear-gradient(
+      to right,
+      #efee9d 25%,
+      #00e699 25%,
+      #efee9d 60%,
+      #efee9d 75%,
+      #00e699 75%
+    )
+    4;
+  margin-top: 2rem;
   padding: 1rem;
-  box-shadow: 11px 17px 34px -10px #e5c3f0;
+  max-height: calc(100vh - 200px - 480px);
 
   .listHeader {
     span {
       text-align: center;
-     -webkit-font-smoothing : none;
-     font-weight: bold;
-
+      -webkit-font-smoothing: none;
+      font-weight: bold;
     }
     padding-bottom: 1rem;
   }
@@ -20,5 +31,13 @@
   .singleUser {
     text-align: center;
   }
-  
+  .namesList {
+    max-height: 90px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .namesList::-webkit-scrollbar {
+    display: none;
+  }
 }
