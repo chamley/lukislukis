@@ -22,7 +22,7 @@ describe('My First Test', () => {
     cy
       .get('button')
       .click()
-      .then(() => expect(stub.getCall(0)).to.be.calledWith('must enter a name'));
+      .then(() => expect(stub.getCall(0)).to.be.calledWith('You have to enter a username!'));
   });
 
   it(`Log in as 'Bello'`, () => {
@@ -60,7 +60,7 @@ describe('My First Test', () => {
       .then(($range) => {
         expect(Number($range.attr('min'))).to.equal(1);
         expect(Number($range.attr('max'))).to.equal(100);
-        expect(Number($range.val())).to.equal(50);
+        expect(Number($range.val())).to.equal(5);
     });
   });
 });
