@@ -72,15 +72,17 @@ function Canvas({ socket }) {
 
   return (
     <div className={styles.Canvas} data-testid="Canvas">
-      {!loaded ? (
-        <div className={styles.loader}>
-          <Loader />
-        </div>
-      ) : (
-        <div className={styles.canvasContainer}>
+      <div className={styles.canvasContainer}>
+        {!loaded ? (
+          <div className={styles.loader}>
+            <Loader />
+          </div>
+        ) : (
           <div className={styles.canvasWrapper} onMouseUp={saveCanvas} role="canvas">
             <canvas className={styles.canvas} id="main-canvas"></canvas>
           </div>
+        )}
+        <div className={styles[!loaded ? 'hidden' : '']}>
           <div className={styles.toolbox}>
             <Tools canvas={canvas} saveCanvas={saveCanvas} />
             <div className="userList">
@@ -88,7 +90,7 @@ function Canvas({ socket }) {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
