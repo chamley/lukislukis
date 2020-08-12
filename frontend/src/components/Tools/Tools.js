@@ -106,42 +106,53 @@ function Tools({ canvas, saveCanvas }) {
   };
 
   return (
-    <div className={styles.Tools} data-testid="Tools">
+    <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
-        <button id="toggleDraw" style={{ fontSize: '12px' }} onClick={toggleDrawingMode}>
-          {drawingMode ? 'Exit' : 'Start'} drawing mode
-        </button>
-        <input
-          id="rangeInput"
-          type="range"
-          min={1}
-          max={100}
-          value={brushSize}
-          onChange={changeBrushSize}
-          alt="brush-size"
-        />
-        <input type="color" value={color} onChange={changeColor} alt="set-color" />
+        <div>
+          <button id="toggleDraw" style={{ fontSize: '12px' }} onClick={toggleDrawingMode}>
+            {drawingMode ? 'Exit' : 'Start'} drawing mode
+          </button>
+          <input
+            id="rangeInput"
+            type={'range'}
+            min={1}
+            max={100}
+            value={brushSize}
+            onChange={changeBrushSize}
+            alt="brush-size"
+          />
+          <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
+        </div>
         <div className={styles.brushButtonsContainer}>
-          <button id="bubblesBtn" onClick={changeBrushType('bubbles')}>
+          <button
+            className={styles[selectedTool === 'bubbles' ? 'active' : '']}
+            onClick={changeBrushType('bubbles')}
+          >
             <img src="/images/bubbles.jpg" alt="brush bubbles" />
           </button>
-          <button id="sprayBtn" onClick={changeBrushType('spray')}>
+          <button
+            className={styles[selectedTool === 'spray' ? 'active' : '']}
+            onClick={changeBrushType('spray')}
+          >
             <img src="/images/spray.png" alt="brush spray" />
           </button>
-          <button id="pencilBtn" onClick={changeBrushType('pencil')}>
+          <button
+            className={styles[selectedTool === 'pencil' ? 'active' : '']}
+            onClick={changeBrushType('pencil')}
+          >
             <img src="/images/pencil.png" alt="brush pencil" />
           </button>
-          <button id="squareBtn" onClick={addRectangle}>
+          <button onClick={addRectangle}>
             <img src="/images/square.png" alt="brush square" />
           </button>
-          <button id="triangleBtn" onClick={addTriangle}>
+          <button onClick={addTriangle}>
             <img src="/images/triangle.png" alt="brush triangle" />
           </button>
-          <button id="circleBtn" onClick={addCircle}>
+          <button onClick={addCircle}>
             <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button id="clearBtn" className={styles.clearButton} onClick={clear}>
+        <button className={styles.clearButton} onClick={clear}>
           clear
         </button>
       </div>
