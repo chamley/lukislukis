@@ -59,6 +59,9 @@ $button-height: 4rem;
       button:hover {
         background-color: #dfdc3a;
       }
+      .active {
+        background-color: #cf6e6e;
+      }
     }
   }
 }
