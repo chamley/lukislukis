@@ -94,8 +94,11 @@ function Tools({ canvas, saveCanvas }) {
   return (
     <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
-        <button onClick={toggleDrawingMode}>{drawingMode ? 'Exit' : 'Start'} drawing mode</button>
+        <button id="toggleDraw" onClick={toggleDrawingMode}>
+          {drawingMode ? 'Exit' : 'Start'} drawing mode
+        </button>
         <input
+          id="rangeInput"
           type={'range'}
           min={1}
           max={100}
