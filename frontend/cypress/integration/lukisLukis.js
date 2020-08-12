@@ -1,7 +1,8 @@
 /* eslint-disable */
-describe('My First Test', () => {
+describe('Lukis Lukis e2e test', () => {
 
   const appData = {
+    testUrl: 'http://localhost:3001',
     appTitle: 'Lukis-Lukis',
     appName: 'Lukis',
     nameRequest: 'Please Enter Your Name',
@@ -19,11 +20,10 @@ describe('My First Test', () => {
     cy.title().should('equal', appData.appTitle);
   });
 
-  it('Check if hero background image is loaded properly', () => {
-    cy.get('img').then(($img) => {
-      expect($img[0].naturalWidth).to.be.greaterThan(0);
-      expect($img[0].naturalHeight).to.be.greaterThan(0);
-    });
+  it('Check if login background image attr is set properly', () => {
+    const imgURL = `${appData.testUrl}/images/loginBckg.jpg`;
+    cy.get('[data-testid="Login"]')
+      .should('have.css', 'background-image', `url("${imgURL}")`);
   });
 
   it('Check if main screen labels are correct', () => {
@@ -56,8 +56,14 @@ describe('My First Test', () => {
         });
   });
 
-  it('Check if spinner is loaded', () => {
+  it('Check if spinner is loading', () => {
     cy.get('[data-testid="Loader"]');
+  });
+
+  it('Check if main background image attr is set properly', () => {
+    const imgURL = `${appData.testUrl}/images/background.jpg`;
+    cy.get('#canvasContainer')
+      .should('have.css', 'background-image', `url("${imgURL}")`);
   });
 
   it('Check if canvas is loaded', () => {
