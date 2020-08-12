@@ -79,7 +79,7 @@ function Canvas({ socket }) {
           </div>
         ) : (
           <div className={styles.canvasWrapper} onMouseUp={saveCanvas} role="canvas">
-            <canvas style={{ border: 'none' }} id="main-canvas"></canvas>
+            <canvas id="main-canvas" style={{ border: 'none' }}></canvas>
           </div>
         )}
         <div className={styles.toolbox}>

@@ -68,4 +68,47 @@ describe('My First Test', () => {
         expect(Number($range.val())).to.equal(5);
     });
   });
+
+  it('Check color picker render', () => {
+    cy.get('[type="color"]').click();
+  });
+
+  it('Check bubbles button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#bubblesBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Exit drawing mode');
+          });
+      });
+  });
+
+  it('Check spray button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#sprayBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Exit drawing mode');
+          });
+      });
+  });
+
+  it('Check pencil button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#pencilBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Exit drawing mode');
+          });
+      });
+  });
 });
