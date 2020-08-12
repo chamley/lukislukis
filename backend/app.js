@@ -8,8 +8,7 @@ const app = express();
 
 
 app.use(cors({
-  origin:'https://fe-lukislukis.herokuapp.com',
-  credentials:'include'
+  origin:'https://fe-lukislukis.herokuapp.com'
 }));
 app.use(helmet());
 app.use(express.json({ limit: '500MB', type: 'application/json' }));
