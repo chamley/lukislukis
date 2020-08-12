@@ -1,10 +1,6 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 
-
-
-
-
 let users = []; // object with id: string, name: string;
 let lockby = {}; // object with id:, timestamp
 
