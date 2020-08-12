@@ -111,4 +111,45 @@ describe('My First Test', () => {
           });
       });
   });
+
+  it('Check square button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#squareBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Start drawing mode');
+            $toggle.click();
+          });
+      });
+  });
+
+  it('Check triangle button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#triangleBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Start drawing mode');
+            $toggle.click();
+          });
+      });
+  });
+
+  it('Check circle button render, on click', () => {
+    cy.get('#toggleDraw')
+      .then(($toggle) => {
+        $toggle.click();
+        expect($toggle.text()).to.equal('Start drawing mode');
+        cy.get('#circleBtn')
+          .then(($button) => {
+            $button.click();
+            expect($toggle.text()).to.equal('Start drawing mode');
+          });
+      });
+  });
 });
