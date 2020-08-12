@@ -7,6 +7,7 @@ const router = require('./routes/router');
 const app = express();
 
 app.use(cors());
+
 app.use(helmet());
 app.use(express.json({ limit: '500MB', type: 'application/json' }));
 app.use(express.urlencoded({ limit: '500MB', extended: true }));
