@@ -38,7 +38,6 @@ function Tools({ canvas, saveCanvas }) {
     canvas.freeDrawingBrush.color = color;
     setDrawingMode(true);
     canvas.isDrawingMode = drawingMode;
-    console.log(canvas);
   };
 
   const toggleDrawingMode = () => {
@@ -58,7 +57,7 @@ function Tools({ canvas, saveCanvas }) {
       canvas.freeDrawingBrush.color = color;
       canvas.isDrawingMode = drawingMode;
     }
-  }, [canvas, canvas.freeDrawingBrush, brushSize, color, canvas.isDrawingMode, drawingMode]);
+  }, [canvas, brushSize, color, drawingMode]);
 
   const addRectangle = () => {
     setDrawingMode(false);

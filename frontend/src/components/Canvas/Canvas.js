@@ -78,7 +78,7 @@ function Canvas({ socket }) {
             <Loader />
           </div>
         ) : (
-          <div className={styles.canvasWrapper} onMouseUp={saveCanvas} role="canvas">
+          <div className={styles.canvasWrapper} onMouseUp={saveCanvas} data-testid="wrapper">
             <canvas className={styles.canvas} id="main-canvas"></canvas>
           </div>
         )}

@@ -37,7 +37,7 @@ describe('<Canvas />', () => {
   });
 
   test('it should mount', () => {
-    expect(screen.getByTestId('Canvas')).toBeInTheDocument();
+    expect(screen.getByTestId('wrapper')).toBeInTheDocument();
   });
 
   it('Should display the tool-box', () => {
@@ -49,12 +49,13 @@ describe('<Canvas />', () => {
   });
 
   it('Api calls should return a new canvas when not provided by the Api', () => {
-    ApiService.getResource.mockResolvedValue({});
-    expect(screen.getByRole('canvas')).toBeInTheDocument();
+    ApiService.getResource.mockResolvedValue({ _id: 'id_value', canvasData: [] });
+    expect(screen.getByTestId('wrapper')).toBeInTheDocument();
   });
 
   it('Canvas should save on mouse up from the canvas', () => {
-    fireEvent.mouseUp(screen.getByRole('canvas'));
+    jest.advanceTimersByTime(3000);
+    fireEvent.mouseUp(screen.getByTestId('wrapper'));
     jest.advanceTimersByTime(1);
     expect(socket.emit).toHaveBeenCalledTimes(1);
   });

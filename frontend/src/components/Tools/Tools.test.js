@@ -20,12 +20,15 @@ const canvas = {
   setActiveObject: function (obj) {
     return true;
   },
+  freeDrawingBrush: {
+    points: [],
+  },
   _objects: [],
 };
 
 const saveCanvas = jest.fn();
 
-describe('<Tools /> for the active user', () => {
+describe('<Tools />', () => {
   beforeEach(() => {
     render(<Tools canvas={canvas} saveCanvas={saveCanvas} />);
   });
