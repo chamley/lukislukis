@@ -108,7 +108,7 @@ function Tools({ canvas, saveCanvas }) {
   return (
     <div className={styles.Tools} data-testid="Tools">
       <div className={styles.toolsContainer}>
-        <button id="toggleDraw" onClick={toggleDrawingMode}>
+        <button id="toggleDraw" style={{ fontSize: '12px' }} onClick={toggleDrawingMode}>
           {drawingMode ? 'Exit' : 'Start'} drawing mode
         </button>
         <input
