@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "jest --detectOpenHandles --forceExit --maxWorkers=10",
     "eslint": "eslint . --ext .js",
     "pretty": "./node_modules/.bin/prettier --write './**/*.{js,json,md}'",
