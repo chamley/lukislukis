@@ -7,8 +7,8 @@ describe('My First Test', () => {
 
   it('Check if hero background image is loaded properly', () => {
     cy.get('img').then(($img) => {
-      expect($img[0].naturalWidth).to.be.greaterThan(0)
-      expect($img[0].naturalHeight).to.be.greaterThan(0)
+      expect($img[0].naturalWidth).to.be.greaterThan(0);
+      expect($img[0].naturalHeight).to.be.greaterThan(0);
     });
   });
 
@@ -18,7 +18,7 @@ describe('My First Test', () => {
   });
 
   it('Try to log in without username -> alert', () => {
-    const stub = cy.stub()
+    const stub = cy.stub();
     cy.on('window:alert', stub);
     cy
       .get('button')
@@ -47,8 +47,8 @@ describe('My First Test', () => {
   });
 
   it('Check if canvas is loaded', () => {
-    cy.get('[data-testid="Canvas"]')
-    cy.get('#main-canvas')
+    cy.get('[data-testid="Canvas"]');
+    cy.get('#main-canvas');
   });
 
   it('Toggle drawing mode button', () => {
@@ -57,7 +57,7 @@ describe('My First Test', () => {
       .click()
       .contains('Start drawing mode')
       .click()
-      .contains('Exit drawing mode')
+      .contains('Exit drawing mode');
   });
 
   it('Check range input element properties', () => {
