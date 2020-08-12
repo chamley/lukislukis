@@ -77,8 +77,8 @@ function Canvas({ socket }) {
         const activeObjects = canvas.getActiveObjects();
         canvas.discardActiveObject();
         activeObjects.forEach((obj) => canvas.remove(obj));
+        saveCanvas();
       }
-      saveCanvas();
     }
   };
 
