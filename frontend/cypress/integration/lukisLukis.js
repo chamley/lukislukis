@@ -73,6 +73,7 @@ describe('Lukis Lukis e2e test', () => {
 
   it('Clear the canvas on entry', () => {
     cy.get('#clearBtn').click();
+    cy.get('#main-canvas').toMatchImageSnapshot();
   });
 
   it('Check userlist box', () => {
@@ -184,5 +185,6 @@ describe('Lukis Lukis e2e test', () => {
 
   it('Clear the canvas on exit', () => {
     cy.get('#clearBtn').click();
+    cy.get('#main-canvas').toMatchImageSnapshot();
   });
 });
