@@ -1,30 +1,27 @@
 .login {
-  height: 100%;
-  width: 100%;
+  background-image: url('/images/loginBckg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
-
-  img {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: -1;
-  }
+  align-items: center;
 
   .heading {
     display: flex;
     flex-direction: column;
-    margin: 1rem;
-    align-self: center;
-    justify-content: center;
+    margin: 2rem;
     border-radius: 2rem;
 
     h1 {
-      color: #F0FFFF;
+      color: #f0ffff;
       font-size: 120px;
       letter-spacing: 1rem;
       line-height: 1;
+      margin: 30px 0;
       text-align: center;
+      text-shadow: 0 0 8px gray;
       -webkit-font-smoothing: none;
     }
   }
@@ -33,22 +30,11 @@
     display: flex;
     flex-direction: column;
     background-color: rgba(225, 20, 92, 0.3);
-    color: #F0FFFF;
-    margin-top: 10rem;
-    margin-bottom: 5rem;
-    padding: 10rem 5rem;
+    color: #f0ffff;
+    padding: 5rem 5rem;
     align-items: center;
     justify-content: center;
     border-radius: 2rem;
-  }
-
-  .formContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
 
   input {
@@ -57,10 +43,15 @@
     border: none;
     border: 3px solid pink;
     border-radius: 1rem;
+    padding: 14px 0;
     text-align: center;
   }
 
-  label {
+  .formLabel {
+    color: #f0ffff;
+    font-size: 25px;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 8px gray;
     width: 100%;
   }
 
@@ -69,10 +60,11 @@
   }
 
   .formElement {
-    color: #F0FFFF;
+    color: #f0ffff;
     margin: 0.5rem 0;
     width: 100%;
     font-size: 25px;
+    height: 65px;
   }
 
   button {
@@ -83,8 +75,6 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     transition: background-color 0.5s;
   }
@@ -97,5 +87,20 @@
     background-color: #00e699;
     transition: background-color 0.5s;
   }
+}
 
+@media only screen and (max-width: 1375px) {
+  .login {
+    .heading {
+      h1 {
+        font-size: 90px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1220px) {
+  .login {
+    flex-direction: column;
+  }
 }

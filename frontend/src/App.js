@@ -33,9 +33,9 @@ function App() {
 
   return (
     <CookiesProvider>
-      <div className="App" data-testid="App">
+      <div className={styles.App} data-testid="App">
         {name ? (
-          <div className="mainPage">
+          <div className={styles.mainpage}>
             <div className={styles.appHeader}>
               <h3>Hello {name}!</h3>
               <button onClick={logout}>Logout</button>

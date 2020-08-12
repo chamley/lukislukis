@@ -5,12 +5,12 @@ $button-height: 4rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 1rem;
+  padding: 2rem;
   background-color: #e4f0f2;
   opacity: 0.9;
-  width: 8rem;
-  margin: 1rem 1rem 1rem 3rem;
+  width: 195px;
   border-radius: 1rem;
+  box-shadow: 0 0 10px gray;
 
   .toolsContainer {
     width: 100%;
@@ -25,13 +25,12 @@ $button-height: 4rem;
       color: darkslategray;
       font-family: 'Permanent Marker', cursive;
       cursor: pointer;
-      margin-top: 0.5rem;
       outline: none;
     }
 
     button:hover {
       outline: none;
-      background-color:	#00e699;
+      background-color: #00e699;
     }
 
     input {
@@ -39,11 +38,12 @@ $button-height: 4rem;
       border: 0;
       width: 100%;
       height: $button-height-half;
-      margin-bottom: 1rem;
       cursor: pointer;
     }
 
     .brushButtonsContainer {
+      margin: 2rem 0;
+
       button {
         border-radius: 1rem;
         border: none;
@@ -60,7 +60,7 @@ $button-height: 4rem;
         background-color: #dfdc3a;
       }
       .active {
-        background-color: #cf6e6e;
+        background-color: #dfdc3a;
       }
     }
   }

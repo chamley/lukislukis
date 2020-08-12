@@ -2,7 +2,9 @@
   justify-content: center;
   align-self: center;
   align-content: center;
+  background-color: white;
   border: 0.5rem solid;
+  box-shadow: 0 0 10px gray;
   border-image: linear-gradient(
       to right,
       #efee9d 25%,
@@ -12,7 +14,9 @@
       #00e699 75%
     )
     4;
+  margin-top: 2rem;
   padding: 1rem;
+  max-height: calc(100vh - 200px - 480px);
 
   .listHeader {
     span {
@@ -25,5 +29,14 @@
 
   .singleUser {
     text-align: center;
+  }
+  .namesList {
+    max-height: 90px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .namesList::-webkit-scrollbar {
+    display: none;
   }
 }

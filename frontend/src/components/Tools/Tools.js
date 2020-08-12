@@ -109,19 +109,21 @@ function Tools({ canvas, saveCanvas }) {
   return (
     <div className={styles.Tools} data-testid={'Tools'}>
       <div className={styles.toolsContainer}>
-        <button id="toggleDraw" onClick={toggleDrawingMode}>
-          {drawingMode ? 'Exit' : 'Start'} drawing mode
-        </button>
-        <input
-          id="rangeInput"
-          type={'range'}
-          min={1}
-          max={100}
-          value={brushSize}
-          onChange={changeBrushSize}
-          alt="brush-size"
-        />
-        <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
+        <div>
+          <button id="toggleDraw" style={{ 'font-size': '12px' }} onClick={toggleDrawingMode}>
+            {drawingMode ? 'Exit' : 'Start'} drawing mode
+          </button>
+          <input
+            id="rangeInput"
+            type={'range'}
+            min={1}
+            max={100}
+            value={brushSize}
+            onChange={changeBrushSize}
+            alt="brush-size"
+          />
+          <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
+        </div>
         <div className={styles.brushButtonsContainer}>
           <button
             className={styles[selectedTool === 'bubbles' ? 'active' : '']}
