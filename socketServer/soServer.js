@@ -7,12 +7,12 @@ const cors = require('cors');
 
 
 //*******************
-//const IO_PORT = process.env.PORT || 4000;
-//breaker:
-const IO_PORT = 4000;
+const IO_PORT = process.env.PORT
+
 
 
 // app.use something something
+
 
 
 app.use(cors({
