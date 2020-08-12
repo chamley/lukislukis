@@ -40,20 +40,20 @@ describe('My First Test', () => {
       .then(() => expect(stub.getCall(0)).to.be.calledWith(appData.loginAlert));
   });
 
-  it(`Log in as 'Bello'`, () => {
+  it(`Log in as ${appData.userName}`, () => {
     cy.get('input')
       .then(($input) => {
         const className = $input[0].classList[0];
         expect(className.includes('formElement')).to.be.true;
         expect($input.attr('name')).to.equal(appData.loginInput);
         expect($input.val()).to.equal('');
-      });
-    cy.get('input').type(appData.userName);
-    cy.get('button')
-      .then(($button) => {
-        expect($button.text()).to.equal(appData.enterBtn);
-        $button.click();
-      });
+        cy.get('input').type(appData.userName);
+        cy.get('button')
+          .then(($button) => {
+            expect($button.text()).to.equal(appData.enterBtn);
+            $button.click();
+          });
+        });
   });
 
   it('Check if spinner is loaded', () => {
@@ -63,6 +63,10 @@ describe('My First Test', () => {
   it('Check if canvas is loaded', () => {
     cy.get('[data-testid="Canvas"]');
     cy.get('#main-canvas');
+  });
+
+  it('Clears the canvas', () => {
+    cy.get('#clearBtn').click();
   });
 
   it('Check userlist box', () => {
