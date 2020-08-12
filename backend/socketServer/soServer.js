@@ -12,11 +12,6 @@ const IO_PORT = process.env.IO_PORT || 4000;
 //   credentials:false,
 //   origin: 'https://lukis-lukis.herokuapp.com/'
 // }));
-app.use(function (req, res, next) { 
-  res.header("Access-Control-Allow-Origin", "http://lukis-lukis.herokuapp.com");
-  res.header('Access-Control-Allow-Credentials', true); 
-  next();
-});
 
 const http = httpmodule.createServer(app);
 const io = makeIoServer(http)
