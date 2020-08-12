@@ -6,12 +6,22 @@ import Login from './components/Login/Login.js';
 import io from 'socket.io-client';
 
 //const socket = io(process.env.REACT_APP_IO_URL);
+
+//headers for io
+
+const headers = {
+  path: process.env.REACT_APP_API_PROD_URL,
+  extraHeaders: {
+    true:true,
+  },
+};
+
 const socket = io(process.env.REACT_APP_API_PROD_URL);
 
 function App() {
   const [name, setName] = useState('');
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
-
+  
   useEffect(() => {
     if (cookies.name) {
       setName(cookies.name);

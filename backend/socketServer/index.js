@@ -13,7 +13,6 @@ const removeUser = (socket) => users.filter((user) => user.id !== socket.id);
 const PORT_VAR = process.env.PORT || 4000;
 
 
-
 io.on('connection', (socket) => {
   socket.emit('connection', socket.id);
 
