@@ -1,8 +1,22 @@
 /* eslint-disable */
 describe('My First Test', () => {
+
+  const appData = {
+    appTitle: 'Lukis-Lukis',
+    appName: 'Lukis',
+    nameRequest: 'Please Enter Your Name',
+    loginAlert: 'You have to enter a username!',
+    userName: 'Bello',
+    loginInput: 'login',
+    enterBtn: 'Enter',
+    userListTitle: 'Fellow Artists Connected:',
+    startDraw: 'Start drawing mode',
+    endDraw: 'Exit drawing mode',
+  };
+
   it('Visit Lukis Lukis, check title', () => {
     cy.visit('http://localhost:3001');
-    cy.title().should('equal', 'Lukis-Lukis');
+    cy.title().should('equal', appData.appTitle);
   });
 
   it('Check if hero background image is loaded properly', () => {
@@ -13,8 +27,8 @@ describe('My First Test', () => {
   });
 
   it('Check if main screen labels are correct', () => {
-    cy.get('label').contains('Please Enter Your Name');
-    cy.get('h1').contains('Lukis');
+    cy.get('label').contains(appData.nameRequest);
+    cy.get('h1').contains(appData.appName);
   });
 
   it('Try to log in without username -> alert', () => {
@@ -23,7 +37,7 @@ describe('My First Test', () => {
     cy
       .get('button')
       .click()
-      .then(() => expect(stub.getCall(0)).to.be.calledWith('You have to enter a username!'));
+      .then(() => expect(stub.getCall(0)).to.be.calledWith(appData.loginAlert));
   });
 
   it(`Log in as 'Bello'`, () => {
@@ -31,13 +45,13 @@ describe('My First Test', () => {
       .then(($input) => {
         const className = $input[0].classList[0];
         expect(className.includes('formElement')).to.be.true;
-        expect($input.attr('name')).to.equal('login');
+        expect($input.attr('name')).to.equal(appData.loginInput);
         expect($input.val()).to.equal('');
       });
-    cy.get('input').type('Bello');
+    cy.get('input').type(appData.userName);
     cy.get('button')
       .then(($button) => {
-        expect($button.text()).to.equal('Enter');
+        expect($button.text()).to.equal(appData.enterBtn);
         $button.click();
       });
   });
@@ -52,17 +66,17 @@ describe('My First Test', () => {
   });
 
   it('Check userlist box', () => {
-    cy.get('#fellowArtists').contains('Fellow Artists Connected:')
-    cy.get('[data-testid="artist"]').contains('Bello')
+    cy.get('#fellowArtists').contains(appData.userListTitle);
+    cy.get('[data-testid="artist"]').contains(appData.userName);
   });
 
   it('Toggle drawing mode button', () => {
     cy
       .get('#toggleDraw')
       .click()
-      .contains('Start drawing mode')
+      .contains(appData.startDraw)
       .click()
-      .contains('Exit drawing mode');
+      .contains(appData.endDraw);
   });
 
   it('Check range input element properties', () => {
@@ -82,11 +96,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#bubblesBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Exit drawing mode');
+            expect($toggle.text()).to.equal(appData.endDraw);
           });
       });
   });
@@ -95,11 +109,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#sprayBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Exit drawing mode');
+            expect($toggle.text()).to.equal(appData.endDraw);
           });
       });
   });
@@ -108,11 +122,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#pencilBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Exit drawing mode');
+            expect($toggle.text()).to.equal(appData.endDraw);
           });
       });
   });
@@ -121,11 +135,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#squareBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Start drawing mode');
+            expect($toggle.text()).to.equal(appData.startDraw);
             $toggle.click();
           });
       });
@@ -135,11 +149,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#triangleBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Start drawing mode');
+            expect($toggle.text()).to.equal(appData.startDraw);
             $toggle.click();
           });
       });
@@ -149,11 +163,11 @@ describe('My First Test', () => {
     cy.get('#toggleDraw')
       .then(($toggle) => {
         $toggle.click();
-        expect($toggle.text()).to.equal('Start drawing mode');
+        expect($toggle.text()).to.equal(appData.startDraw);
         cy.get('#circleBtn')
           .then(($button) => {
             $button.click();
-            expect($toggle.text()).to.equal('Start drawing mode');
+            expect($toggle.text()).to.equal(appData.startDraw);
           });
       });
   });
