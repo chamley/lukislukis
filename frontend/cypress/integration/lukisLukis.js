@@ -1,7 +1,8 @@
 /* eslint-disable */
 describe('My First Test', () => {
-  it('Visit Lukis Lukis', () => {
+  it('Visit Lukis Lukis, check title', () => {
     cy.visit('http://localhost:3001');
+    cy.title().should('equal', 'Lukis-Lukis');
   });
 
   it('Check if hero background image is loaded properly', () => {
@@ -39,6 +40,10 @@ describe('My First Test', () => {
         expect($button.text()).to.equal('Enter');
         $button.click();
       });
+  });
+
+  it('Check if spinner is loaded', () => {
+    cy.get('[data-testid="Loader"]');
   });
 
   it('Check if canvas is loaded', () => {
