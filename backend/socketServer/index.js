@@ -2,18 +2,6 @@ const app = require('express')();
 const http = require('http').createServer(app);
 
 
-//  stackoverflow suggestion: 
-const io = require('socket.io')(http, {
-  handlePreflightRequest: (req, res) => {
-    const headers = {
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Origin": 'https://fe-lukislukis.herokuapp.com', //or the specific origin you want to give access to,
-        "Access-Control-Allow-Credentials": 'true'
-    };
-    res.writeHead(200, headers);
-    res.end();
-}
-});
 
 
 
