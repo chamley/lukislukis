@@ -10,7 +10,6 @@ const MAX_SIZE = process.env.REACT_APP_MAX_SIZE;
 function Canvas({ socket }) {
   const [canvas, setCanvas] = useState({});
   const [id, setId] = useState('');
-  const [selectedTool, setSelectedTool] = useState('pencil');
 
   useEffect(() => {
     ApiService.getResource('main-canvas').then((data) => {
@@ -72,14 +71,10 @@ function Canvas({ socket }) {
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
         <div onMouseUp={saveCanvas} role="canvas">
-          <canvas
-            className={styles[selectedTool]}
-            style={{ border: 'solid 1px #eee' }}
-            id="main-canvas"
-          ></canvas>
+          <canvas style={{ border: 'solid 1px #eee' }} id="main-canvas"></canvas>
         </div>
         <div className={styles.toolbox}>
-          <Tools canvas={canvas} saveCanvas={saveCanvas} setSelectedTool={setSelectedTool} />
+          <Tools canvas={canvas} saveCanvas={saveCanvas} />
           <div className="userList">
             <UserList socket={socket} />
           </div>

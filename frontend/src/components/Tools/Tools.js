@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './Tools.module.scss';
 import { fabric } from 'fabric';
 
-function Tools({ canvas, saveCanvas, setSelectedTool }) {
+function Tools({ canvas, saveCanvas }) {
   const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
   const [drawingMode, setDrawingMode] = useState(true);
+  const [selectedTool, setSelectedTool] = useState('pencil');
 
   const clear = () => {
     canvas.clear();
@@ -119,13 +120,22 @@ function Tools({ canvas, saveCanvas, setSelectedTool }) {
         />
         <input type={'color'} value={color} onChange={changeColor} alt="set-color" />
         <div className={styles.brushButtonsContainer}>
-          <button onClick={changeBrushType('bubbles')}>
+          <button
+            className={styles[selectedTool === 'bubbles' ? 'active' : '']}
+            onClick={changeBrushType('bubbles')}
+          >
             <img src="/images/bubbles.jpg" alt="brush bubbles" />
           </button>
-          <button onClick={changeBrushType('spray')}>
+          <button
+            className={styles[selectedTool === 'spray' ? 'active' : '']}
+            onClick={changeBrushType('spray')}
+          >
             <img src="/images/spray.png" alt="brush spray" />
           </button>
-          <button onClick={changeBrushType('pencil')}>
+          <button
+            className={styles[selectedTool === 'pencil' ? 'active' : '']}
+            onClick={changeBrushType('pencil')}
+          >
             <img src="/images/pencil.png" alt="brush pencil" />
           </button>
           <button onClick={addRectangle}>
