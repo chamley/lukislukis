@@ -4,7 +4,7 @@ const httpmodule = require('http');
 const cors = require('cors');
 const makeIoServer = require('./ioSocket');
 
-const IO_PORT = process.env.IO_PORT || 4000;
+const IO_PORT = process.env.PORT || 4000;
 
 // app.use something something
 
