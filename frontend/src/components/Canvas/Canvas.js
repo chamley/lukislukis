@@ -39,6 +39,7 @@ function Canvas({ socket }) {
         });
       }
     });
+    document.addEventListener('keyup', handleKeyup, false);
   }, [canvas, socket]);
 
   const initCanvas = () => {
@@ -68,6 +69,17 @@ function Canvas({ socket }) {
         alert('Your canvas is too big!!');
       }
     }, 1);
+  };
+
+  const handleKeyup = (e) => {
+    if (e.keyCode === 46 && canvas.toJSON) {
+      if (canvas.isDrawingMode === false) {
+        const activeObjects = canvas.getActiveObjects();
+        canvas.discardActiveObject();
+        activeObjects.forEach((obj) => canvas.remove(obj));
+      }
+      saveCanvas();
+    }
   };
 
   return (
