@@ -7,19 +7,20 @@ const cors = require('cors');
 
 const IO_PORT = process.env.PORT
 
-const corsOptions = {
-  origin: 'https://lukis-lukis.herokuapp.com'
-}
 
-app.get('*', cors(corsOptions))
+app.use(cors());
+// const corsOptions = {
+//   origin: 'https://lukis-lukis.herokuapp.com'
+// }
+//app.get('*', cors(corsOptions))
 
 // app.use(cors({
 //   origin: 'https://lukis-lukis.herokuapp.com'
 // }));
 
-app.use( (req,res,next)=> {
-  res.header("Access-Control-Allow-Origin", "*:*");
-})
+// app.use( (req,res,next)=> {
+//   res.header("Access-Control-Allow-Origin", "*:*");
+// })
 
 const http = httpmodule.createServer(app);
 const io = makeIoServer(http)
