@@ -65,7 +65,7 @@ describe('My First Test', () => {
     cy.get('#main-canvas');
   });
 
-  it('Clears the canvas', () => {
+  it('Clear the canvas on entry', () => {
     cy.get('#clearBtn').click();
   });
 
@@ -174,5 +174,9 @@ describe('My First Test', () => {
             expect($toggle.text()).to.equal(appData.startDraw);
           });
       });
+  });
+
+  it('Clear the canvas on exit', () => {
+    cy.get('#clearBtn').click();
   });
 });
