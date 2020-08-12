@@ -91,7 +91,7 @@ function Canvas({ socket }) {
           </div>
         ) : (
           <div className={styles.canvasWrapper} onMouseUp={saveCanvas} data-testid="wrapper">
-            <canvas className={styles.canvas} id="main-canvas"></canvas>
+            <canvas id="main-canvas" className={styles.canvas}></canvas>
           </div>
         )}
         <div className={styles[!loaded ? 'hidden' : '']}>

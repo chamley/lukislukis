@@ -92,10 +92,13 @@ describe('Lukis Lukis e2e test', () => {
 
   it('Check range input element properties', () => {
     cy.get('#rangeInput')
+      .as('range')
+      .invoke('val', 33)
+      .trigger('change')
       .then(($range) => {
         expect(Number($range.attr('min'))).to.equal(1);
         expect(Number($range.attr('max'))).to.equal(100);
-        expect(Number($range.val())).to.equal(5);
+        expect(Number($range.val())).to.equal(33);
     });
   });
 
@@ -112,6 +115,10 @@ describe('Lukis Lukis e2e test', () => {
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.endDraw);
+            cy.get('.upper-canvas')
+              .trigger('mousedown', 400, 400)
+              .trigger('mousemove', { offsetX: 150, offsetY: 150 })
+              .trigger('mouseup', 150, 150)
           });
       });
   });
@@ -125,6 +132,7 @@ describe('Lukis Lukis e2e test', () => {
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.endDraw);
+            cy.get('.upper-canvas')
           });
       });
   });
@@ -151,6 +159,10 @@ describe('Lukis Lukis e2e test', () => {
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.startDraw);
+            cy.get('.upper-canvas')
+              .trigger('mousedown', 3, 3)
+              .trigger('mousemove', { offsetX: 150, offsetY: 150 })
+              .trigger('mouseup', 150, 150)
             $toggle.click();
           });
       });
@@ -179,6 +191,7 @@ describe('Lukis Lukis e2e test', () => {
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.startDraw);
+            cy.get('#main-canvas').toMatchImageSnapshot();
           });
       });
   });
