@@ -6,7 +6,7 @@ import Login from './components/Login/Login.js';
 import io from 'socket.io-client';
 
 
-const socket = io(process.env.REACT_APP_IO_URL, { transport : ['websocket'] });
+const socket = io(process.env.REACT_APP_IO_URL);
 
 function App() {
   const [name, setName] = useState('');

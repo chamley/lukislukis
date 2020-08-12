@@ -2,6 +2,7 @@ const socketIo = require('socket.io');
 
 function makeIoServer(httpServer) {
   const io = socketIo(httpServer);
+  io.origins(['http://lukis-lukis.herokuapp.com']);
 
   let users = []; // object with id: string, name: string;
 
