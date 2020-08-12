@@ -10,7 +10,7 @@ const IO_PORT = process.env.PORT
 
 app.use(cors({
   credentials:true,
-  origin: 'https://lukis-lukis.herokuapp.com/'
+  origin: 'https://lukis-lukis.herokuapp.com'
 }));
 app.use( (req,res,next)=> {
   res.header("Access-Control-Allow-Origin", "*");
