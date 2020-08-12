@@ -17,13 +17,14 @@ app.use(cors({
 
 /// 
 const http = httpmodule.createServer(app);
-const io = makeIoServer(http);
+const io = makeIoServer(http)
+  .listen(IO_PORT, () => console.info('listening on *:4000'));
 
 //give io a handle request
 
 io.on('connect_failed', () => console.error('Connection failed!'));
 
-http.listen(IO_PORT, () => console.info('listening on *:4000'));
+//http.;
 
 
 
