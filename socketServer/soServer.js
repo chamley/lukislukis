@@ -7,11 +7,16 @@ const cors = require('cors');
 
 const IO_PORT = process.env.PORT
 
-
-app.use(cors({
-  credentials:true,
+const corsOptions = {
   origin: 'https://lukis-lukis.herokuapp.com'
-}));
+}
+
+app.get('*', cors(corsOptions))
+
+// app.use(cors({
+//   origin: 'https://lukis-lukis.herokuapp.com'
+// }));
+
 app.use( (req,res,next)=> {
   res.header("Access-Control-Allow-Origin", "*:*");
 })
