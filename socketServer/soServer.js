@@ -5,14 +5,7 @@ const httpmodule = require('http');
 const makeIoServer = require('./ioSocket');
 const cors = require('cors');
 
-
-//*******************
 const IO_PORT = process.env.PORT
-
-
-
-// app.use something something
-
 
 
 app.use(cors({
@@ -24,10 +17,9 @@ const http = httpmodule.createServer(app);
 const io = makeIoServer(http)
   .listen(IO_PORT, () => console.info('listening on *:4000'));
 
-//give io a handle request
 io.on('connect_failed', () => console.error('Connection failed!'));
 
-//http.;
+
 
 
 

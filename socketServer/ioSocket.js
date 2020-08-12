@@ -12,6 +12,7 @@ function makeIoServer(httpServer) {
     socket.emit('connection', socket.id);
 
     socket.on('login', () => {});
+    io.set('origins', '*:*');
 
     socket.on('save', (msg) => {
       socket.broadcast.emit('saving', msg);
