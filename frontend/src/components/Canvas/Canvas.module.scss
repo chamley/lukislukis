@@ -1,18 +1,31 @@
 .Canvas {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
   .canvasContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 2rem 2rem 1.5rem 1.5rem;
+    align-items: center;
+    height: 100%;
+    width: 100%;
   }
+
   .canvasWrapper {
     border: none;
     box-shadow: 5px 5px 20px #808080;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
+    height: fit-content;
   }
 
   .toolbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-left: 2rem;
+    width: 300px;
   }
 
   .status {
@@ -27,13 +40,7 @@
     font-weight: bold;
   }
 
-  .loader {
-    width: 60vw;
-    height: 75vh;
-    display: 'flex';
-    flex-direction: 'row';
-    justify-content: 'center';
-    align-items: 'center';
+  .hidden {
+    display: none;
   }
 }
-

@@ -44,8 +44,8 @@ function Canvas({ socket }) {
   const initCanvas = () => {
     return new fabric.Canvas('main-canvas', {
       preserveObjectStacking: true,
-      height: window.innerHeight * 0.75,
-      width: window.innerWidth * 0.6,
+      height: window.innerHeight - 200,
+      width: window.innerWidth - 500,
       backgroundColor: 'white',
       isDrawingMode: true,
     });
@@ -82,10 +82,12 @@ function Canvas({ socket }) {
             <canvas id="main-canvas" style={{ border: 'none' }}></canvas>
           </div>
         )}
-        <div className={styles.toolbox}>
-          <Tools canvas={canvas} saveCanvas={saveCanvas} />
-          <div className="userList">
-            <UserList socket={socket} />
+        <div className={styles[!loaded ? 'hidden' : '']}>
+          <div className={styles.toolbox}>
+            <Tools canvas={canvas} saveCanvas={saveCanvas} />
+            <div className="userList">
+              <UserList socket={socket} />
+            </div>
           </div>
         </div>
       </div>

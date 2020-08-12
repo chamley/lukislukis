@@ -15,12 +15,11 @@ function Login({ setName }) {
 
   return (
     <div className={styles.login} data-testid="Login">
-      <img src="/images/loginBckg.jpg" alt="login background" />
       <div className={styles.heading}>
         <h1>Lukis</h1>
       </div>
-      <div className={styles.loginForm}>
-        <label className={styles.formElement}>Please Enter Your Name</label>
+      <form className={styles.loginForm}>
+        <label className={styles.formLabel}>Please Enter Your Name</label>
         <input
           className={styles.formElement}
           type="text"
@@ -31,7 +30,7 @@ function Login({ setName }) {
         <button className={styles.formElement} type="submit" value="Submit" onClick={handleSubmit}>
           Enter
         </button>
-      </div>
+      </form>
       <div className={styles.heading}>
         <h1>Lukis</h1>
       </div>

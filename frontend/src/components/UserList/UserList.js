@@ -15,12 +15,14 @@ const UserList = ({ socket }) => {
       <div className={styles.listHeader}>
         <span id="fellowArtists">Fellow Artists Connected:</span>
       </div>
-      {userList &&
-        userList.map((user) => (
-          <div key={user.name + Math.random()} className={styles.singleUser} data-testid="artist">
-            {user.name}
-          </div>
-        ))}
+      <div className={styles.namesList}>
+        {userList &&
+          userList.map((user) => (
+            <div key={user.name + Math.random()} className={styles.singleUser} data-testid="artist">
+              {user.name}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };
