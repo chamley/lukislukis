@@ -1,12 +1,14 @@
 
 const app = require('express')();
 const httpmodule = require('http');
-const cors = require('cors');
+
 const makeIoServer = require('./ioSocket');
+const cors = require('cors');
 
 const IO_PORT = process.env.PORT || 4000;
 
 // app.use something something
+
 
 app.use(cors({
   credentials:true,
