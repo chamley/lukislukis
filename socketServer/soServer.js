@@ -12,6 +12,9 @@ app.use(cors({
   credentials:true,
   origin: 'https://lukis-lukis.herokuapp.com/'
 }));
+app.use( (req,res,next)=> {
+  res.header("Access-Control-Allow-Origin", "*");
+})
 
 const http = httpmodule.createServer(app);
 const io = makeIoServer(http)
