@@ -13,7 +13,7 @@ const UserList = ({ socket }) => {
   return (
     <div className={styles.UserList} data-testid="UserList">
       <div className={styles.listHeader}>
-        <span>Fellow Artists Connected:</span>
+        <span id="fellowArtists">Fellow Artists Connected:</span>
       </div>
       {userList &&
         userList.map((user) => (

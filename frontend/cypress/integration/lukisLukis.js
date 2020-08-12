@@ -51,6 +51,11 @@ describe('My First Test', () => {
     cy.get('#main-canvas');
   });
 
+  it('Check userlist box', () => {
+    cy.get('#fellowArtists').contains('Fellow Artists Connected:')
+    cy.get('[data-testid="artist"]').contains('Bello')
+  });
+
   it('Toggle drawing mode button', () => {
     cy
       .get('#toggleDraw')
