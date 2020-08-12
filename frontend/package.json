@@ -32,6 +32,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.10.4",
     "cypress": "^4.12.1",
+    "cypress-plugin-snapshots": "^1.4.4",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "18.2.0",
     "eslint-config-prettier": "^6.11.0",
@@ -42,6 +43,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
     "jest-canvas-mock": "^2.2.0",
+    "js-base64": "^2.5.2",
     "prettier": "^2.0.5"
   },
   "eslintConfig": {
