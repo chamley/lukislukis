@@ -72,7 +72,7 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Clear the canvas on entry', () => {
-    cy.get('#clearBtn').click();
+    cy.get('[data-testid="clearBtn"]').click();
     cy.get('#main-canvas').toMatchImageSnapshot();
   });
 
@@ -83,7 +83,7 @@ describe('Lukis Lukis e2e test', () => {
 
   it('Toggle drawing mode button', () => {
     cy
-      .get('#toggleDraw')
+      .get('[data-testid="toggleDraw"]')
       .click()
       .contains(appData.startDraw)
       .click()
@@ -104,11 +104,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check bubbles button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#bubblesBtn')
+        cy.get('[data-testid="bubblesBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.endDraw);
@@ -117,11 +117,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check spray button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#sprayBtn')
+        cy.get('[data-testid="sprayBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.endDraw);
@@ -130,11 +130,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check pencil button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#pencilBtn')
+        cy.get('[data-testid="pencilBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.endDraw);
@@ -143,11 +143,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check square button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#squareBtn')
+        cy.get('[data-testid="rectangleBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.startDraw);
@@ -157,11 +157,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check triangle button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#triangleBtn')
+        cy.get('[data-testid="triangleBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.startDraw);
@@ -171,11 +171,11 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Check circle button render, on click', () => {
-    cy.get('#toggleDraw')
+    cy.get('[data-testid="toggleDraw"]')
       .then(($toggle) => {
         $toggle.click();
         expect($toggle.text()).to.equal(appData.startDraw);
-        cy.get('#circleBtn')
+        cy.get('[data-testid="circleBtn"]')
           .then(($button) => {
             $button.click();
             expect($toggle.text()).to.equal(appData.startDraw);
@@ -184,7 +184,7 @@ describe('Lukis Lukis e2e test', () => {
   });
 
   it('Clear the canvas on exit', () => {
-    cy.get('#clearBtn').click();
+    cy.get('[data-testid="clearBtn"]').click();
     cy.get('#main-canvas').toMatchImageSnapshot();
   });
 });

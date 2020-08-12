@@ -106,10 +106,10 @@ function Tools({ canvas, saveCanvas }) {
   };
 
   return (
-    <div className={styles.Tools} data-testid={'Tools'}>
+    <div className={styles.Tools} data-testid="Tools">
       <div className={styles.toolsContainer}>
         <div>
-          <button id="toggleDraw" style={{ fontSize: '12px' }} onClick={toggleDrawingMode}>
+          <button style={{ fontSize: '12px' }} onClick={toggleDrawingMode} data-testid="toggleDraw">
             {drawingMode ? 'Exit' : 'Start'} drawing mode
           </button>
           <input
@@ -127,32 +127,35 @@ function Tools({ canvas, saveCanvas }) {
           <button
             className={styles[selectedTool === 'bubbles' ? 'active' : '']}
             onClick={changeBrushType('bubbles')}
+            data-testid="bubblesBtn"
           >
             <img src="/images/bubbles.jpg" alt="brush bubbles" />
           </button>
           <button
             className={styles[selectedTool === 'spray' ? 'active' : '']}
             onClick={changeBrushType('spray')}
+            data-testid="sprayBtn"
           >
             <img src="/images/spray.png" alt="brush spray" />
           </button>
           <button
             className={styles[selectedTool === 'pencil' ? 'active' : '']}
             onClick={changeBrushType('pencil')}
+            data-testid="pencilBtn"
           >
             <img src="/images/pencil.png" alt="brush pencil" />
           </button>
-          <button onClick={addRectangle}>
+          <button onClick={addRectangle} data-testid="rectangleBtn">
             <img src="/images/square.png" alt="brush square" />
           </button>
-          <button onClick={addTriangle}>
+          <button onClick={addTriangle} data-testid="triangleBtn">
             <img src="/images/triangle.png" alt="brush triangle" />
           </button>
-          <button onClick={addCircle}>
+          <button onClick={addCircle} data-testid="circleBtn">
             <img src="/images/circle.png" alt="brush circle" />
           </button>
         </div>
-        <button className={styles.clearButton} onClick={clear}>
+        <button className={styles.clearButton} onClick={clear} data-testid="clearBtn">
           clear
         </button>
       </div>
@@ -161,3 +164,7 @@ function Tools({ canvas, saveCanvas }) {
 }
 
 export default Tools;
+
+/*
+
+*/
