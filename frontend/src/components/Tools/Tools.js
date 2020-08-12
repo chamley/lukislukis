@@ -164,7 +164,3 @@ function Tools({ canvas, saveCanvas }) {
 }
 
 export default Tools;
-
-/*
-
-*/
