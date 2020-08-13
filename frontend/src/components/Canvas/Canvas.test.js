@@ -54,9 +54,13 @@ describe('<Canvas />', () => {
   });
 
   it('Canvas should save on mouse up from the canvas', () => {
-    jest.advanceTimersByTime(3000);
     fireEvent.mouseUp(screen.getByTestId('wrapper'));
     jest.advanceTimersByTime(1);
     expect(socket.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('Hitting delete should not work in drawing mode', () => {
+    fireEvent.keyUp(document, { keyCode: 46 });
+    expect(socket.emit).toHaveBeenCalledTimes(0);
   });
 });

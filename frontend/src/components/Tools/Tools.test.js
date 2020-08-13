@@ -63,6 +63,7 @@ describe('<Tools />', () => {
     const setColor = screen.getByAltText('set-color');
     fireEvent.change(setColor, { target: { value: '#ff0000' } });
     expect(setColor.value).toBe('#ff0000');
+    expect(canvas.freeDrawingBrush.color).toBe('#ff0000');
   });
 
   it('Clicking on bubbles should change the brush to bubbles', () => {
@@ -111,5 +112,20 @@ describe('<Tools />', () => {
     fireEvent.click(screen.getByText('clear'));
     expect(canvas._objects).toHaveLength(0);
     expect(saveCanvas).toHaveBeenCalledTimes(1);
+  });
+
+  it('should recover the selected tool when switching drawing mode', () => {
+    fireEvent.click(screen.getByTestId('sprayBtn'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    expect(screen.getByTestId('sprayBtn')).toHaveClass('active');
+    fireEvent.click(screen.getByTestId('pencilBtn'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    expect(screen.getByTestId('pencilBtn')).toHaveClass('active');
+    fireEvent.click(screen.getByTestId('bubblesBtn'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    fireEvent.click(screen.getByTestId('toggleDraw'));
+    expect(screen.getByTestId('bubblesBtn')).toHaveClass('active');
   });
 });
