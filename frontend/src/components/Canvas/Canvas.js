@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from './Canvas.module.scss';
 import { fabric } from 'fabric';
 import Tools from '../Tools/Tools';
-import ApiService from '../../Services/ApiService';
 import UserList from '../UserList/UserList';
 import Loader from '../Loader/Loader';
 
@@ -14,12 +13,14 @@ function Canvas({ socket }) {
   const [id, setId] = useState('');
 
   useEffect(() => {
-    ApiService.getResource('main-canvas').then((data) => {
-      setId(data._id);
-      if (data.canvasData) {
+    socket.on('connection', (data) => {
+      console.log(data);
+      setId(data.id);
+      if (data.canvas.canvasData) {
         setLoaded(true);
         const importCanvas = initCanvas();
-        importCanvas.loadFromJSON(data.canvasData, () => {
+        importCanvas._id = data.canvas._id;
+        importCanvas.loadFromJSON(data.canvas.canvasData, () => {
           setCanvas(importCanvas);
           importCanvas.renderAll();
         });
@@ -27,13 +28,12 @@ function Canvas({ socket }) {
         setCanvas(initCanvas());
       }
     });
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
-    socket.on('connection', (data) => setId(data));
     socket.on('saving', (data) => {
       if (Object.keys(canvas).length > 1) {
-        canvas.loadFromJSON(JSON.parse(data.data), () => {
+        canvas.loadFromJSON(JSON.parse(data.canvas.canvasData), () => {
           setCanvas(canvas);
           canvas.renderAll();
         });
@@ -57,14 +57,13 @@ function Canvas({ socket }) {
       const canvasData = JSON.stringify(canvas.toJSON());
       if (canvas && canvasData.length < MAX_SIZE) {
         const body = {
-          _id: id,
-          canvasData,
+          id: id,
+          canvas: {
+            _id: canvas._id,
+            canvasData,
+          },
         };
-        ApiService.createResource('canvas', body, 'PUT');
-        socket.emit('save', {
-          data: canvasData,
-          id,
-        });
+        socket.emit('save', body);
       } else {
         alert('Your canvas is too big!!');
       }

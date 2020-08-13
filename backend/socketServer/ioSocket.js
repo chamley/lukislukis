@@ -1,4 +1,5 @@
 const socketIo = require('socket.io');
+const controller = require('../controller/socketController');
 
 function makeIoServer(httpServer) {
   const io = socketIo(httpServer);
@@ -7,15 +8,7 @@ function makeIoServer(httpServer) {
 
   const removeUser = (socket) => users.filter((user) => user.id !== socket.id);
 
-  io.on('connection', (socket) => {
-    socket.emit('connection', socket.id);
-
-    socket.on('login', () => {});
-
-    socket.on('save', (msg) => {
-      socket.broadcast.emit('saving', msg);
-    });
-
+  io.on('connection', async (socket) => {
     socket.on('enter', (name) => {
       users.push({
         id: socket.id,
@@ -23,6 +16,17 @@ function makeIoServer(httpServer) {
       });
       socket.emit('userList', users);
       socket.broadcast.emit('userList', users);
+    });
+
+    const canvas = await controller.getMainCanvas();
+    socket.emit('connection', { id: socket.id, canvas });
+
+    socket.on('login', () => {});
+
+    socket.on('save', async (msg) => {
+      socket.broadcast.emit('saving', msg);
+      const res = await controller.putCanvas(msg.canvas);
+      console.log(res);
     });
 
     socket.on('leave', () => {
