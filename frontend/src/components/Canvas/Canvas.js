@@ -72,7 +72,7 @@ function Canvas({ socket }) {
   };
 
   const handleKeyup = (e) => {
-    if (e.keyCode === 46 && canvas.toJSON) {
+    if ((e.keyCode === 46 || e.keyCode === 8) && canvas.toJSON) {
       if (canvas.isDrawingMode === false) {
         const activeObjects = canvas.getActiveObjects();
         canvas.discardActiveObject();
