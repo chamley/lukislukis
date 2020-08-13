@@ -39,6 +39,7 @@ function Canvas({ socket }) {
         });
       }
     });
+    document.addEventListener('keyup', handleKeyup, false);
   }, [canvas, socket]);
 
   const initCanvas = () => {
@@ -70,6 +71,17 @@ function Canvas({ socket }) {
     }, 1);
   };
 
+  const handleKeyup = (e) => {
+    if (e.keyCode === 46 && canvas.toJSON) {
+      if (canvas.isDrawingMode === false) {
+        const activeObjects = canvas.getActiveObjects();
+        canvas.discardActiveObject();
+        activeObjects.forEach((obj) => canvas.remove(obj));
+        saveCanvas();
+      }
+    }
+  };
+
   return (
     <div className={styles.Canvas} data-testid="Canvas">
       <div className={styles.canvasContainer}>
@@ -78,8 +90,8 @@ function Canvas({ socket }) {
             <Loader />
           </div>
         ) : (
-          <div className={styles.canvasWrapper} onMouseUp={saveCanvas} role="canvas">
-            <canvas className={styles.canvas} id="main-canvas"></canvas>
+          <div className={styles.canvasWrapper} onMouseUp={saveCanvas} data-testid="wrapper">
+            <canvas id="main-canvas" className={styles.canvas}></canvas>
           </div>
         )}
         <div className={styles[!loaded ? 'hidden' : '']}>

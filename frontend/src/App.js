@@ -41,7 +41,7 @@ function App() {
               <h3>Hello {name}!</h3>
               <button onClick={logout}>Logout</button>
             </div>
-            <div className={styles.container}>
+            <div id="canvasContainer" className={styles.container}>
               <Canvas id="canvas" socket={socket} name={name} />
             </div>
           </div>
