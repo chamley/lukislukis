@@ -1,3 +1,7 @@
+[![GitHub license](https://img.shields.io/github/license/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/blob/develop/LICENSE)
+
+
+
 # lukis-lukis
 Lukis-lukis is a solo project for codeworks. It is a webapp that allows two or more friends to draw on one canvas together.
 
