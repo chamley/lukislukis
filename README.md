@@ -1,4 +1,10 @@
 [![GitHub license](https://img.shields.io/github/license/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/blob/develop/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/releases/tag/1.0.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/noiffion/lukislukis)](https://GitHub.com/noiffion/lukislukis/issues)
+![GitHub coverage](https://img.shields.io/badge/Coverage-89%25-green)
+
+![ForTheBadge built-with-love](https://ForTheBadge.com/images/badges/built-with-love.svg)
 
 
 
@@ -6,10 +12,10 @@
 Lukis-lukis is a solo project for codeworks. It is a webapp that allows two or more friends to draw on one canvas together.
 
 ## Usage
-To run, simply run npm start on frontend, frontend/server and backend. Mongodb should also be run. Users will be greeted with a log in page and where they have to enter their name in order to access the canvas. There are also a cookie which contain the username, this cookie does not expire but will be remove if user log out. 
+To run, simply run npm start on frontend, frontend/server and backend. Mongodb should also be run. Users will be greeted with a log in page and where they have to enter their name in order to access the canvas. There are also a cookie which contain the username, this cookie does not expire but will be remove if user log out.
 When any user enter the canvas, their name shows up in the list of active users.
 When one user interact with the canvas, other user will be lock out of the canvas(drawingmode = false).
-When one user send the canvas over by clicking the send button, the canvas data will be save to the database and other user will see the updated result through socket io. 
+When one user send the canvas over by clicking the send button, the canvas data will be save to the database and other user will see the updated result through socket io.
 When one user logout / send the canvas/ close the browser, the canvas will be unlocked and available for anyone to draw (drawingmode= true).
 Clear will clear the canvas but it will also locked it. users can send over clear canvas to their friends.
 
