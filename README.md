@@ -1,3 +1,8 @@
+
+[![GitHub license](https://img.shields.io/github/license/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/blob/develop/LICENSE)[![GitHub release](https://img.shields.io/github/release/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/releases/tag/1.0.0)[![GitHub contributors](https://img.shields.io/github/contributors/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/graphs/contributors)[![GitHub issues](https://img.shields.io/github/issues/noiffion/lukislukis)](https://GitHub.com/noiffion/lukislukis/issues)![GitHub coverage](https://img.shields.io/badge/Coverage-89%25-green)
+
+![ForTheBadge built-with-love](https://ForTheBadge.com/images/badges/built-with-love.svg)
+
 # Lukis-Lukis
 Lukis-Lukis is collaborative project that allows users to create drawings on a common canvas. An original solo project by [Aneesa Zafri](https://github.com/neesafarza/lukislukis), completely redesigned and deployed on [heroku](http://lukis-lukis.herokuapp.com/). 
 
@@ -22,7 +27,6 @@ Clone the repo and install it by running `npm i` on the root folder. The script 
 To run the project, run `npm start` from the root folder.
 
 A .env.copy file has been added to the repository to guide you through the necessary environment variables.   Lukis-Lukis works on a mongoDB database. Make sure you have one available and running when you start the project.
-
 
 
 ## Technologies
