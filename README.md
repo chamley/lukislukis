@@ -1,5 +1,5 @@
 
-[![GitHub license](https://img.shields.io/github/license/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/blob/develop/LICENSE)[![GitHub release](https://img.shields.io/github/release/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/releases/tag/1.0.0)[![GitHub contributors](https://img.shields.io/github/contributors/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/graphs/contributors)[![GitHub issues](https://img.shields.io/github/issues/noiffion/lukislukis)](https://GitHub.com/noiffion/lukislukis/issues)![GitHub coverage](https://img.shields.io/badge/Coverage-89%25-green)
+[![GitHub license](https://img.shields.io/github/license/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/blob/develop/LICENSE) [![GitHub release](https://img.shields.io/github/release/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/releases/tag/1.0.0) [![GitHub contributors](https://img.shields.io/github/contributors/noiffion/lukislukis)](https://github.com/noiffion/lukislukis/graphs/contributors) [![GitHub issues](https://img.shields.io/github/issues/noiffion/lukislukis)](https://GitHub.com/noiffion/lukislukis/issues) ![GitHub coverage](https://img.shields.io/badge/Coverage-89%25-green)
 
 ![ForTheBadge built-with-love](https://ForTheBadge.com/images/badges/built-with-love.svg)
 
